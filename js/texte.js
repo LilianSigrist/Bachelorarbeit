@@ -18,95 +18,67 @@ TEXTE.einverstaendnis = () => `
     <tr><td>Durchführungsort und -zeit:</td><td>Online, ${CONFIG.ZEITRAUM}</td></tr>
     <tr><td>Kontaktperson für Fragen:</td><td>${CONFIG.KONTAKT}</td></tr>
     <tr><td>Projektleitung:</td><td>${CONFIG.PROJEKTLEITUNG}</td></tr>
-    <tr><td>Datenschutzbeauftragter ETH Zürich:</td><td>Tomislav Mitar (tomislav.mitar@sl.ethz.ch)</td></tr>
+    <tr><td>Datenschutzbeauftragte:r ETH Zürich:</td><td>${CONFIG.DATENSCHUTZ}</td></tr>
   </table>
 
-  <p>Wir fragen Sie hier an, ob Sie bereit wären, an unserem Forschungsvorhaben mitzuwirken. Ihre Teilnahme ist
-  freiwillig. Bitte lesen Sie die folgenden Informationen sorgfältig durch. Wenn Sie Fragen haben, wenden Sie sich
-  an die oben genannte Kontaktperson.</p>
+  <h2>Informationen zur Studienteilnahme</h2>
+  <p>Ihre Teilnahme ist freiwillig. Bitte lesen Sie die folgenden Informationen sorgfältig durch. Bei Fragen
+  wenden Sie sich an die oben genannte Kontaktperson.</p>
 
-  <h3>Was wird untersucht und wie?</h3>
-  <p>Wir möchten herausfinden, wie die Gestaltung von Brettspielanleitungen beeinflusst, wie gut man die Regeln
-  versteht und wie anstrengend das Lesen ist. Dazu lesen Sie drei Anleitungen zu erfundenen Brettspielen, die
-  sich in ihrer Gestaltung unterscheiden. Die Anleitungen wurden mithilfe künstlicher Intelligenz erstellt und von
-  uns sorgfältig überprüft. Die Ergebnisse sollen helfen, Spielanleitungen und andere Anleitungstexte
-  verständlicher zu gestalten.</p>
+  <h3>Was wird untersucht?</h3>
+  <p>Wir untersuchen, wie die Gestaltung von Brettspielanleitungen das Regelverständnis und die Anstrengung beim
+  Lesen beeinflusst. Dazu lesen Sie drei unterschiedlich gestaltete Anleitungen zu erfundenen Brettspielen. Sie
+  wurden mithilfe künstlicher Intelligenz erstellt und von uns überprüft. Die Ergebnisse sollen helfen,
+  Spielanleitungen und andere Anleitungstexte verständlicher zu gestalten.</p>
 
   <h3>Wer kann teilnehmen?</h3>
-  <p>Teilnehmen können alle Personen ab 18 Jahren, die Deutsch als Erstsprache sprechen oder sehr gute
-  Deutschkenntnisse (mindestens Niveau C1) haben und normal oder mit Brille bzw. Kontaktlinsen gut sehen. Sie
-  benötigen einen Computer oder Laptop. Vorkenntnisse zu Brettspielen sind nicht nötig.</p>
+  <p>Personen ab 18 Jahren mit einem Computer oder Laptop.</p>
 
-  <h3>Was muss ich bei einer Teilnahme tun?</h3>
-  <p>Sie beantworten zuerst einige kurze Fragen zu Ihrer Person und zu Ihrer Erfahrung mit Brettspielen. Danach lesen
-  Sie nacheinander drei Spielanleitungen in Ihrem eigenen Tempo. Nach jeder Anleitung beantworten Sie Fragen dazu,
-  wie verständlich und wie anstrengend Sie die Anleitung fanden, sowie einige Verständnisfragen. Zum Schluss lösen
-  Sie eine kurze Leseaufgabe und eine Aufgabe, bei der Sie sich Wörter merken. Die Teilnahme dauert insgesamt ca.
-  ${CONFIG.DAUER_MIN} Minuten. Bitte nehmen Sie an einem Computer und an einem ruhigen Ort teil.</p>
+  <h3>Wie läuft die Teilnahme ab?</h3>
+  <p>Zuerst beantworten Sie kurze Fragen zu Ihrer Person und Ihrer Brettspielerfahrung. Danach lesen Sie drei
+  Spielanleitungen in Ihrem eigenen Tempo und beantworten jeweils Fragen zur Verständlichkeit, zur Anstrengung
+  beim Lesen und zu den Regeln. Zum Schluss folgen eine kurze Lese- und eine Gedächtnisaufgabe.</p>
+  <p>Die Teilnahme dauert ca. ${CONFIG.DAUER_MIN} Minuten. Zwischen den Anleitungen können Sie Pausen machen.
+  Es handelt sich nicht um einen Leistungstest, und Sie erhalten keine Rückmeldung zu Ihren persönlichen
+  Ergebnissen.</p>
 
-  <h3>Was sind meine Rechte während der Teilnahme?</h3>
-  <p>Ihre Teilnahme an dieser Studie ist freiwillig. Sie können jederzeit ohne Angabe von Gründen und ohne Nachteil
-  die Teilnahme abbrechen, indem Sie das Browserfenster schliessen. Da wir keine Daten erheben, die Sie
-  identifizieren, können wir Ihre Studiendaten nach Abschluss der Teilnahme nicht mehr Ihnen zuordnen und deshalb
-  auch nicht einzeln löschen. Ihre E-Mail-Adresse für die Verlosung können Sie jederzeit löschen lassen, indem Sie
-  der Kontaktperson schreiben.</p>
+  <h3>Welche Rechte habe ich?</h3>
+  <p>Sie können die Teilnahme jederzeit ohne Angabe von Gründen abbrechen, indem Sie das Browserfenster schliessen.
+  Da die Studiendaten anonym erhoben werden, lassen sie sich nach Abschluss der Teilnahme nicht mehr Ihrer Person
+  zuordnen und deshalb nicht einzeln löschen. Ihre E-Mail-Adresse für die Verlosung können Sie jederzeit über die
+  Kontaktperson löschen lassen.</p>
 
-  <h3>Welche Risiken und welchen Nutzen kann ich erwarten?</h3>
-  <p>Es sind keine Risiken bekannt. Das Lesen und Beantworten der Fragen erfordert Konzentration und kann etwas
-  ermüdend sein; zwischen den Anleitungen können Sie kurze Pausen machen. Es handelt sich nicht um einen
-  Leistungstest, und Sie erhalten keine Rückmeldung zu Ihren persönlichen Ergebnissen. Einen direkten Nutzen haben
-  Sie nicht; Sie tragen aber dazu bei, Anleitungen verständlicher zu machen.</p>
+  <h3>Gibt es eine Entschädigung?</h3>
+  <p>Unter allen Teilnehmenden verlosen wir ${CONFIG.VERLOSUNG_TEXT}. Die Teilnahme an der Verlosung ist freiwillig
+  und erfolgt über ein separates Formular, in dem Sie Ihre E-Mail-Adresse angeben. Voraussetzung ist, dass Sie die
+  Studie vollständig abschliessen. Die Ziehung erfolgt bis ${CONFIG.ZIEHUNG_BIS}; die Gewinner:innen werden per
+  E-Mail benachrichtigt.</p>
 
-  <h3>Werde ich für die Teilnahme entschädigt?</h3>
-  <p>Sie erhalten keine Entschädigung. Unter allen Teilnehmenden verlosen wir aber ${CONFIG.VERLOSUNG_TEXT}.
-  Wenn Sie teilnehmen möchten, werden Sie am Ende der Studie auf ein separates Formular weitergeleitet und geben
-  dort Ihre E-Mail-Adresse an. Die Teilnahme an der Verlosung ist freiwillig. Auch wenn Sie die Studie abbrechen,
-  können Sie teilnehmen: Schreiben Sie dazu eine E-Mail an die Kontaktperson. Die Ziehung findet bis
-  ${CONFIG.ZIEHUNG_BIS} statt; die Gewinner:innen werden per E-Mail benachrichtigt.</p>
-
-  <h3>Welche Daten werden von mir erhoben und wie werden sie verwendet?</h3>
-  <p>In der Studie selbst werden keine Daten erhoben, die Sie identifizieren (z. B. Name, E-Mail-Adresse oder
-  IP-Adresse). Folgende Daten werden anonym erhoben:</p>
-  <ul>
-    <li>Alter, Geschlecht, Erstsprache und Erfahrung mit Brettspielen</li>
-    <li>Ihre Antworten auf die Fragen zu den Spielanleitungen sowie Ihre Ergebnisse in der Lese- und der
-    Gedächtnisaufgabe (inkl. Bearbeitungszeiten)</li>
-  </ul>
-  <p>Diese Daten benötigen wir, um zu untersuchen, wie die Gestaltung der Anleitungen das Verstehen beeinflusst. Sie
-  werden auf passwortgeschützten, verschlüsselten Speichern der ETH Zürich gespeichert. Zugriff haben nur die
-  Projektmitglieder sowie, zu Kontrollzwecken und unter strikter Vertraulichkeit, die Ethikkommission der ETH
-  Zürich. Die Ergebnisse werden in einer Bachelorarbeit und gegebenenfalls in einer wissenschaftlichen
-  Fachzeitschrift veröffentlicht. Da die Daten anonym sind, sind keine Rückschlüsse auf Ihre Person möglich. Die
-  anonymen Daten können zur Weiterverwendung in einer Forschungsdatenbank veröffentlicht werden. Daten oder
-  Resultate werden nicht exklusiv mit Dritten geteilt.</p>
-  <p><strong>E-Mail-Adresse (freiwillig):</strong> Wenn Sie an der Verlosung teilnehmen oder die Ergebnisse erhalten
-  möchten, geben Sie Ihre E-Mail-Adresse in einem separaten Formular an. Dieses Formular ist technisch von der
-  Studie getrennt; Ihre E-Mail-Adresse kann deshalb nicht mit Ihren Antworten verknüpft werden. Wir verwenden sie
-  nur für die Verlosung bzw. den Versand der Ergebnisse, geben sie nicht weiter und löschen sie danach (spätestens
-  [[30.06.2027]]). Zugriff hat nur die Kontaktperson.</p>
-
-  <h3>Wer finanziert die Studie?</h3>
-  <p>Die Studie hat keine externe Finanzierung. Sie wird im Rahmen einer Bachelorarbeit an der Professur für Lehr-
-  und Lernforschung der ETH Zürich durchgeführt. Die Preise der Verlosung werden finanziert durch [[ergänzen]].</p>
-
-  <h3>Wer hat die Studie geprüft?</h3>
-  <p>Diese Studie wurde von der Ethikkommission der ETH Zürich unter der Gesuchsnummer ${CONFIG.ETHIK_NUMMER}
-  geprüft und bewilligt.</p>
-
-  <h3>Beschwerdestelle</h3>
-  <p>Das Sekretariat der ETH Zürich Ethikkommission nimmt Ihre Beschwerden im Zusammenhang mit Ihrer
-  Studienteilnahme entgegen. Kontakt: ethics@sl.ethz.ch oder 0041 44 632 85 72.</p>
+  <h3>Welche Daten werden erhoben und wie werden sie verwendet?</h3>
+  <p><strong>Studiendaten:</strong> Wir erheben anonym Ihr Alter, Ihr Geschlecht, Ihre Erstsprache und Ihre
+  Brettspielerfahrung sowie Ihre Antworten zu den Anleitungen und Ihre Ergebnisse in der Lese- und
+  Gedächtnisaufgabe (einschliesslich Bearbeitungszeiten). Wir nutzen sie, um den Einfluss der Gestaltung auf das
+  Verständnis zu untersuchen. Die Daten werden verschlüsselt und passwortgeschützt an der ETH Zürich gespeichert.
+  Zugriff haben nur die Projektmitglieder sowie, zu Kontrollzwecken und unter strikter Vertraulichkeit, die
+  Ethikkommission der ETH Zürich.</p>
+  <p>Die Ergebnisse werden in einer Bachelorarbeit und gegebenenfalls in einer wissenschaftlichen Fachzeitschrift
+  veröffentlicht. Die anonymen Daten können zudem in einer Forschungsdatenbank zur Weiterverwendung
+  veröffentlicht werden. Daten und Resultate werden nicht exklusiv mit Dritten geteilt.</p>
+  <p><strong>E-Mail-Adresse (freiwillig):</strong> Für die Verlosung oder den Erhalt der Studienergebnisse geben Sie
+  Ihre E-Mail-Adresse in einem separaten Formular an. Es ist technisch von der Studie getrennt, sodass Ihre Adresse
+  nicht mit Ihren Studiendaten verknüpft werden kann. Wir verwenden sie nur für die Verlosung bzw. den
+  Ergebnisversand, geben sie nicht weiter und löschen sie spätestens am ${CONFIG.LOESCHUNG_BIS}. Zugriff hat nur
+  die Kontaktperson.</p>
 
   <h3>Einverständniserklärung</h3>
-  <p>Mit dem Aktivieren des Kontrollkästchens und dem Klick auf «Weiter» bestätige ich:</p>
+  <p>Mit dem Aktivieren des Kontrollkästchens und dem Klick auf «Weiter» bestätigen Sie:</p>
   <ul>
-    <li>Ich habe die Informationen zur Studie gelesen und verstanden.</li>
-    <li>Ich hatte genug Zeit, über meine Teilnahme zu entscheiden, und nehme freiwillig an der Studie teil.</li>
-    <li>Ich erfülle die genannten Bedingungen für die Teilnahme.</li>
-    <li>Ich bin einverstanden, dass die oben beschriebenen Daten von mir gesammelt und wie beschrieben verwendet werden.</li>
-    <li>Ich weiss, dass meine Daten in anonymisierter Form veröffentlicht werden können.</li>
-    <li>Ich weiss, dass ich meine Teilnahme jederzeit abbrechen kann.</li>
-    <li>Ich weiss, dass die Teilnahme an der Verlosung freiwillig ist und keine Voraussetzung für die Studienteilnahme.</li>
+    <li>Ich habe die Studieninformationen gelesen und verstanden und hatte ausreichend Zeit, über meine Teilnahme zu entscheiden.</li>
+    <li>Ich nehme freiwillig teil und erfülle die genannten Teilnahmebedingungen.</li>
+    <li>Ich bin mit der Erhebung und Verwendung meiner Daten wie beschrieben einverstanden.</li>
+    <li>Ich weiss, dass meine anonymisierten Daten veröffentlicht und zur Weiterverwendung in einer Forschungsdatenbank bereitgestellt werden können.</li>
+    <li>Ich weiss, dass ich meine Teilnahme jederzeit ohne Angabe von Gründen abbrechen kann.</li>
+    <li>Ich weiss, dass die Teilnahme an der Verlosung freiwillig und keine Voraussetzung für die Studienteilnahme ist.</li>
   </ul>
   <label class="checkbox">
     <input type="checkbox" name="einverstanden" value="ja" required>

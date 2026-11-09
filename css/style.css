@@ -48,7 +48,7 @@ body {
 /* Testmodus */
 .testbanner {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  background: #c62828; color: #fff; text-align: center;
+  background: #2f5d7c; color: #fff; text-align: center;
   font-size: 13px; padding: 3px;
 }
-.testbox { border: 2px solid #c62828; padding: 1em; margin-top: 2em; background: #fff; }
+.testbox { border: 2px solid #2f5d7c; padding: 1em; margin-top: 2em; background: #fff; }

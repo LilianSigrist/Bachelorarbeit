@@ -22,7 +22,7 @@ Die drei Spiele werden immer in derselben Reihenfolge gelesen (Spiel 1, 2, 3), d
 ## Testen
 
 Ohne DataPipe-ID läuft die Studie im **Testmodus**: Es wird nichts online gespeichert, am Ende können die Daten als CSV
-heruntergeladen werden. Oben erscheint ein roter Balken mit der Gruppe.
+heruntergeladen werden. Oben erscheint ein blauer Balken mit der Gruppe.
 
 - `…/index.html?test=1` – Testmodus (auch wenn DataPipe schon eingerichtet ist)
 - `…/index.html?test=1&gruppe=5` – eine bestimmte Sequenzgruppe testen

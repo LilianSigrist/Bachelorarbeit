@@ -18,16 +18,18 @@ const CONFIG = {
   VERLOSUNG_URL: "",
 
   // Ungefähre Dauer in Minuten (wird in der Studieninformation angezeigt)
-  DAUER_MIN: 35,
+  DAUER_MIN: "[[xx]]",
 
   // Erhebungszeitraum, Kontakte (erscheinen auf der Startseite)
-  ZEITRAUM: "[[01.01.2027 – 22.01.2027]]",
-  KONTAKT: "Lilian Sigrist, ZHAW, [[E-Mail]]",
+  ZEITRAUM: "01.01.2027 – 22.01.2027",
+  KONTAKT: "Lilian Sigrist, ZHAW, sigrilil@students.zhaw.ch",
   PROJEKTLEITUNG: "Dr. Christian Thurn, Professur für Lehr- und Lernforschung, ETH Zürich, [[E-Mail]]",
-  KONTAKT_EMAIL: "[[E-Mail]]",
+  KONTAKT_EMAIL: "sigrilil@students.zhaw.ch",
+  DATENSCHUTZ: "[[offen]]",
   ETHIK_NUMMER: "[[XX ETHICS-YYY]]",
   VERLOSUNG_TEXT: "[[Anzahl]] Gutscheine im Wert von je CHF [[Betrag]]",
-  ZIEHUNG_BIS: "[[28.02.2027]]",
+  ZIEHUNG_BIS: "[[xx]]",
+  LOESCHUNG_BIS: "[[xx]]", // Löschung der E-Mail-Adressen
 
   // ---------------------------------------------------------------
   // Die drei Spiele der Studie, in der Lesereihenfolge (Spiel 1, 2, 3).
