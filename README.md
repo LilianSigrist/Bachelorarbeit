@@ -7,10 +7,10 @@ Aufbau und Texte folgen dem Ethikantrag. Offene Stellen sind mit `[[doppelten ec
 
 1. Technische Prüfung (nur Computer/Laptop, Mindestgrösse des Fensters)
 2. Studieninformation und Einverständnis (Ethikantrag A1.3)
-3. Angaben zur Person und vier Fragen zur Brettspielaffinität (A2.1)
-4. Drei Spielanleitungen. Nach jeder: Verständlichkeit (10 Items, zufällige Reihenfolge), Cognitive Load, Verständnisfragen
+3. Fragen zur Brettspielerfahrung (Frage 2b nur, wenn bei Frage 2 nicht «nie»)
+4. Drei Spielanleitungen. Nach jeder: Verständlichkeit (10 Items, zufällige Reihenfolge), Cognitive Load Questionnaire (15 Items, Krieglstein et al., 2023), Verständnisfragen
 5. Lesefertigkeit (SLS-Berlin, 3 Minuten)
-6. Arbeitsgedächtnis (Word Span Task, mit Übungsdurchgang)
+6. Arbeitsgedächtnis (Word Span Task: Übung, dann Listen mit 3–7 Wörtern; Abbruch, wenn beide Listen einer Länge falsch sind)
 7. Speichern der Daten, Abschlussseite mit Link zum separaten Verlosungsformular
 
 ## Design

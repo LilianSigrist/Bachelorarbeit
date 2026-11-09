@@ -42,11 +42,15 @@ const daten = [];
 const fake = {
   data: {
     get: () => ({
-      filter: (f) => ({ last: () => ({ values: () => daten.filter((d) => Object.entries(f).every(([k, v]) => d[k] === v)).slice(-1) }) }),
+      filter: (f) => {
+        const treffer = daten.filter((d) => Object.entries(f).every(([k, v]) => d[k] === v));
+        return { values: () => treffer, last: () => ({ values: () => treffer.slice(-1) }) };
+      },
       csv: () => "", localSave: () => {},
     }),
   },
 };
+let falschAb = 99;
 const ev = (x) => (typeof x === "function" ? x() : x);
 function laufen(knoten) {
   for (const k of knoten) {
@@ -55,9 +59,8 @@ function laufen(knoten) {
     const t = k.type.name;
     if (t === "jsPsychSurveyMultiChoice") {
       const qs = ev(k.questions); d.response = {}; qs.forEach((q) => (d.response[q.name] = q.options[1]));
-      if (k.data.aufgabe === "brettspiel_2") pruefe(qs.length === 2, "Frage 2b sollte gezeigt werden");
     } else if (t === "jsPsychSurveyHtmlForm") {
-      d.response = k.data.aufgabe === "wordspan" ? { antwort: k.data.liste } : {};
+      d.response = k.data.aufgabe === "wordspan" ? { antwort: (k.data.listenlaenge >= falschAb ? "xx" : k.data.liste) } : {};
     } else if (t === "jsPsychHtmlButtonResponse") { ev(k.stimulus); ev(k.trial_duration); d.response = 0; }
     else if (t === "jsPsychHtmlKeyboardResponse") ev(k.stimulus);
     if (k.on_finish) k.on_finish(d);
@@ -72,11 +75,19 @@ for (let g = 1; g <= 8; g++) {
   pruefe(lesen.length === 3, `Gruppe ${g}: ${lesen.length} statt 3 Anleitungen`);
   pruefe(lesen.map((d) => d.bedingung).join() === CONFIG.YOUDEN[g].join(), `Gruppe ${g}: falsche Bedingungen`);
   const ws = daten.filter((d) => d.aufgabe === "wordspan" && !d.uebung);
-  pruefe(ws.length === 12 && ws.every((d) => d.alles_richtig), `Gruppe ${g}: Word-Span-Auswertung`);
+  pruefe(ws.length === 10 && ws.every((d) => d.alles_richtig), `Gruppe ${g}: Word-Span-Auswertung (${ws.length})`);
+  pruefe(daten.some((d) => d.aufgabe === "brettspiel_2"), `Gruppe ${g}: Frage 2b fehlt`);
+  pruefe(!daten.some((d) => d.aufgabe === "person"), `Gruppe ${g}: Personenseite noch vorhanden`);
+  pruefe(daten.filter((d) => d.aufgabe === "cognitive_load").length === 3, `Gruppe ${g}: CLQ`);
   const woerter = daten.filter((d) => d.aufgabe === "wordspan").flatMap((d) => d.liste.split(" "));
   pruefe(new Set(woerter).size === woerter.length && !woerter.includes(""), `Gruppe ${g}: Wörter doppelt/zu wenige`);
   pruefe(daten.filter((d) => d.aufgabe === "sls").length === ctx.TEXTE.sls_saetze.length, `Gruppe ${g}: SLS`);
   pruefe(daten.filter((d) => d.aufgabe === "verstaendnisfragen").every((d) => d.vf_anzahl === 2), `Gruppe ${g}: VF`);
 }
+// Abbruchregel: ab Länge 5 alles falsch -> Länge 3, 4, 5 bearbeitet, dann Ende
+falschAb = 5; daten.length = 0;
+laufen(ctx.ablaufErstellen(fake, 1, "test"));
+const wsA = daten.filter((d) => d.aufgabe === "wordspan" && !d.uebung).map((d) => d.listenlaenge).join();
+pruefe(wsA === "3,3,4,4,5,5", `Abbruchregel greift nicht richtig (${wsA})`);
 console.log(fehler ? `${fehler} Fehler` : "Alles in Ordnung: Youden-Square und Ablauf für alle 8 Gruppen geprüft.");
 process.exit(fehler ? 1 : 0);

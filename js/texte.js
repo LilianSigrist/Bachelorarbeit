@@ -35,7 +35,7 @@ TEXTE.einverstaendnis = () => `
   <p>Personen ab 18 Jahren mit einem Computer oder Laptop.</p>
 
   <h3>Wie läuft die Teilnahme ab?</h3>
-  <p>Zuerst beantworten Sie kurze Fragen zu Ihrer Person und Ihrer Brettspielerfahrung. Danach lesen Sie drei
+  <p>Zuerst beantworten Sie kurze Fragen zu Ihrer Brettspielerfahrung. Danach lesen Sie drei
   Spielanleitungen in Ihrem eigenen Tempo und beantworten jeweils Fragen zur Verständlichkeit, zur Anstrengung
   beim Lesen und zu den Regeln. Zum Schluss folgen eine kurze Lese- und eine Gedächtnisaufgabe.</p>
   <p>Die Teilnahme dauert ca. ${CONFIG.DAUER_MIN} Minuten. Zwischen den Anleitungen können Sie Pausen machen.
@@ -55,8 +55,7 @@ TEXTE.einverstaendnis = () => `
   E-Mail benachrichtigt.</p>
 
   <h3>Welche Daten werden erhoben und wie werden sie verwendet?</h3>
-  <p><strong>Studiendaten:</strong> Wir erheben anonym Ihr Alter, Ihr Geschlecht, Ihre Erstsprache und Ihre
-  Brettspielerfahrung sowie Ihre Antworten zu den Anleitungen und Ihre Ergebnisse in der Lese- und
+  <p><strong>Studiendaten:</strong> Wir erheben anonym Ihre Brettspielerfahrung sowie Ihre Antworten zu den Anleitungen und Ihre Ergebnisse in der Lese- und
   Gedächtnisaufgabe (einschliesslich Bearbeitungszeiten). Wir nutzen sie, um den Einfluss der Gestaltung auf das
   Verständnis zu untersuchen. Die Daten werden verschlüsselt und passwortgeschützt an der ETH Zürich gespeichert.
   Zugriff haben nur die Projektmitglieder sowie, zu Kontrollzwecken und unter strikter Vertraulichkeit, die
@@ -88,25 +87,7 @@ TEXTE.einverstaendnis = () => `
 </div>`;
 
 /* ---------------------------------------------------------------------
-   Angaben zur Person (Ethikantrag A2.1)
-   --------------------------------------------------------------------- */
-TEXTE.person = `
-<div class="textseite formular">
-  <h2>Angaben zu Ihrer Person</h2>
-  <p><label>Wie alt sind Sie? (in Jahren)<br>
-    <input type="number" name="alter" min="18" max="110" required></label></p>
-  <p>Welchem Geschlecht ordnen Sie sich zu?<br>
-    <label><input type="radio" name="geschlecht" value="weiblich" required> weiblich</label><br>
-    <label><input type="radio" name="geschlecht" value="männlich"> männlich</label><br>
-    <label><input type="radio" name="geschlecht" value="divers"> divers</label><br>
-    <label><input type="radio" name="geschlecht" value="keine Angabe"> keine Angabe</label></p>
-  <p>Ist Deutsch Ihre Erstsprache?<br>
-    <label><input type="radio" name="erstsprache_deutsch" value="ja" required> ja</label><br>
-    <label><input type="radio" name="erstsprache_deutsch" value="nein"> nein</label></p>
-</div>`;
-
-/* ---------------------------------------------------------------------
-   Brettspielaffinität (Ethikantrag A2.1, vier Fragen)
+   Brettspielaffinität (drei Fragen; 2b nur bei Bedarf)
    --------------------------------------------------------------------- */
 TEXTE.brettspiel = [
   {
@@ -128,14 +109,7 @@ TEXTE.brettspiel = [
               "Wir lernen die Regeln gemeinsam beim Spielen.", "Anderes"],
     nurWenn: (antworten) => antworten.bs_lernen !== "nie", // wird übersprungen, wenn bei bs_lernen «nie»
   },
-  {
-    name: "bs_komplexitaet",
-    prompt: "Welche Art von Brettspielen spielen Sie am häufigsten?",
-    options: ["leichte Familien- und Partyspiele (z. B. Uno, Dog, Codenames)",
-              "mittelschwere Spiele (z. B. Catan, Carcassonne, Azul, Wingspan)",
-              "komplexe Strategiespiele (z. B. Terraforming Mars, Scythe, Gloomhaven)",
-              "Ich spiele keine Brettspiele."],
-  },
+
 ];
 
 /* ---------------------------------------------------------------------
@@ -157,19 +131,29 @@ TEXTE.verstaendlichkeit = [
 ];
 
 /* ---------------------------------------------------------------------
-   Kognitive Belastung (Ethikantrag A2.5)
-   Angepasste Version des Cognitive Load Questionnaire (Krieglstein et al., 2023)
-   [[Finale, angepasste Items und Antwortskala einfügen.]]
+   Kognitive Belastung: angepasste Version des Cognitive Load Questionnaire
+   (Krieglstein et al., 2023; 15 Items, CC BY 4.0). Nummerierung wie im Original
+   (GCL2 und GCL4 gibt es in der Endfassung nicht).
    --------------------------------------------------------------------- */
-TEXTE.clq_skala = ["1<br>stimmt überhaupt nicht", "2", "3", "4", "5", "6", "7<br>stimmt völlig"]; // [[Skala prüfen]]
+// 9-stufige Skala wie im Original. [[Wortlaut der Endpunkte mit Originalartikel abgleichen]]
+TEXTE.clq_skala = ["1<br>trifft überhaupt nicht zu", "2", "3", "4", "5", "6", "7", "8", "9<br>trifft voll und ganz zu"];
 
 TEXTE.clq = [
-  { name: "icl1", prompt: "[[Platzhalter ICL-Item 1]]" },
-  { name: "icl2", prompt: "[[Platzhalter ICL-Item 2]]" },
-  { name: "ecl1", prompt: "[[Platzhalter ECL-Item 1]]" },
-  { name: "ecl2", prompt: "[[Platzhalter ECL-Item 2]]" },
-  { name: "gcl1", prompt: "[[Platzhalter GCL-Item 1]]" },
-  { name: "gcl2", prompt: "[[Platzhalter GCL-Item 2]]" },
+  { name: "icl1", prompt: "Die Spielregeln waren schwer zu verstehen." },
+  { name: "icl2", prompt: "Die Erklärungen der Spielregeln waren schwer nachvollziehbar." },
+  { name: "icl3", prompt: "Die Spielregeln waren komplex." },
+  { name: "icl4", prompt: "Die Spielregeln enthielten viele komplexe Informationen." },
+  { name: "icl5", prompt: "?? (Original: Ohne Vorwissen waren die Informationen nicht verständlich.)" },
+  { name: "ecl1", prompt: "Es war schwierig, einen Überblick über den Aufbau der Spielanleitung zu erlangen." },
+  { name: "ecl2", prompt: "Die Gestaltung der Spielanleitung machte es schwer, die Zusammenhänge zwischen den einzelnen Informationen herzustellen." },
+  { name: "ecl3", prompt: "Die Spielanleitung war ungünstig gestaltet." },
+  { name: "ecl4", prompt: "Die Gestaltung der Spielanleitung machte es schwierig, wichtige Informationen zügig zu finden." },
+  { name: "ecl5", prompt: "Aufgrund der Gestaltung der Spielanleitung hatte ich das Gefühl, mich nicht auf die Spielregeln konzentrieren zu können." },
+  { name: "gcl1", prompt: "Ich habe aktiv über die Spielregeln nachgedacht." },
+  { name: "gcl3", prompt: "Ich habe mich bemüht, die Spielregeln zu verstehen." },
+  { name: "gcl5", prompt: "Ich habe ein umfassendes Verständnis der Spielregeln erlangt." },
+  { name: "gcl6", prompt: "?? (Original: Ich konnte mein bestehendes Wissen mit den Lerninhalten erweitern.)" },
+  { name: "gcl7", prompt: "Das Regelwissen, das ich durch die Spielanleitung erworben habe, kann ich schnell und sicher im Spiel anwenden." },
 ];
 
 /* ---------------------------------------------------------------------

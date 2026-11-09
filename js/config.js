@@ -76,12 +76,13 @@ const CONFIG = {
   SLS_ZEIT_S: 180,
 
   // ---------------------------------------------------------------
-  // Word Span Task [[Parameter nach Berkowitz et al. (2022) prüfen]]
+  // Word Span Task [[Parameter mit Berkowitz et al. (2022) abgleichen]]
   // ---------------------------------------------------------------
   WORDSPAN: {
-    LISTENLAENGEN: [2, 3, 4, 5, 6, 7], // Anzahl Wörter pro Liste
+    LISTENLAENGEN: [3, 4, 5, 6, 7], // Anzahl Wörter pro Liste (Übung: 2 Wörter)
     DURCHGAENGE_PRO_LAENGE: 2,
     WORT_MS: 1000,   // Anzeigedauer pro Wort
     PAUSE_MS: 250,   // leerer Bildschirm zwischen den Wörtern
+    ABBRUCHREGEL: true, // Ende, wenn alle Listen einer Länge falsch sind
   },
 };

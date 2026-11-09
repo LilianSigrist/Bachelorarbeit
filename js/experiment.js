@@ -6,7 +6,7 @@
    Ablauf gemäss Ethikantrag 2.2:
      1. Technische Prüfung (Computer, Fenstergrösse)
      2. Studieninformation und Einverständnis
-     3. Angaben zur Person und Brettspielaffinität
+     3. Brettspielaffinität
      4. Drei Spielanleitungen (lesen, Verständlichkeit, Cognitive Load, Verständnisfragen)
      5. Lesefertigkeit (SLS-Berlin)
      6. Arbeitsgedächtnis (Word Span Task)
@@ -109,15 +109,7 @@ function ablaufErstellen(jsPsych, gruppe, teilnahmeId) {
     data: { aufgabe: "einverstaendnis" },
   });
 
-  /* 3a. Angaben zur Person */
-  timeline.push({
-    type: jsPsychSurveyHtmlForm,
-    html: TEXTE.person,
-    button_label: "Weiter",
-    data: { aufgabe: "person" },
-  });
-
-  /* 3b. Brettspielaffinität (Frage 2b nur, wenn bei Frage 2 nicht «nie») */
+  /* 3. Brettspielaffinität (Frage 2b nur, wenn bei Frage 2 nicht «nie») */
   const bsFrage = (f) => ({ name: f.name, prompt: f.prompt, options: f.options, required: true });
   timeline.push({
     type: jsPsychSurveyMultiChoice,
@@ -126,17 +118,16 @@ function ablaufErstellen(jsPsych, gruppe, teilnahmeId) {
     button_label: "Weiter",
     data: { aufgabe: "brettspiel_1" },
   });
+  const frage2b = TEXTE.brettspiel.find((f) => f.name === "bs_lernart");
   timeline.push({
-    type: jsPsychSurveyMultiChoice,
-    preamble: "<h2>Ihre Erfahrung mit Brettspielen</h2>",
-    questions: () => {
-      const bisher = ende("brettspiel_1").response;
-      return TEXTE.brettspiel.slice(2)
-        .filter((f) => !f.nurWenn || f.nurWenn(bisher))
-        .map(bsFrage);
-    },
-    button_label: "Weiter",
-    data: { aufgabe: "brettspiel_2" },
+    timeline: [{
+      type: jsPsychSurveyMultiChoice,
+      preamble: "<h2>Ihre Erfahrung mit Brettspielen</h2>",
+      questions: [bsFrage(frage2b)],
+      button_label: "Weiter",
+      data: { aufgabe: "brettspiel_2" },
+    }],
+    conditional_function: () => frage2b.nurWenn(ende("brettspiel_1").response),
   });
 
   /* 4. Drei Spielanleitungen */
@@ -307,10 +298,22 @@ function ablaufErstellen(jsPsych, gruppe, teilnahmeId) {
     choices: ["Start"],
     data: { aufgabe: "wordspan_start" },
   });
+  // Abbruchregel: Sind alle Durchgänge einer Listenlänge falsch, endet die Aufgabe.
   let nr = 1;
-  ws.LISTENLAENGEN.forEach((laenge) => {
+  let abgebrochen = false;
+  ws.LISTENLAENGEN.forEach((laenge, li) => {
+    const vorherige = li > 0 ? ws.LISTENLAENGEN[li - 1] : null;
     for (let r = 0; r < ws.DURCHGAENGE_PRO_LAENGE; r++) {
-      timeline.push(wsDurchgang(naechsteListe(laenge), false, nr++));
+      timeline.push({
+        ...wsDurchgang(naechsteListe(laenge), false, nr++),
+        conditional_function: () => {
+          if (!abgebrochen && r === 0 && vorherige !== null && ws.ABBRUCHREGEL) {
+            const vorher = jsPsych.data.get().filter({ aufgabe: "wordspan", uebung: false, listenlaenge: vorherige }).values();
+            if (vorher.length > 0 && vorher.every((d) => !d.alles_richtig)) abgebrochen = true;
+          }
+          return !abgebrochen;
+        },
+      });
     }
   });
 
