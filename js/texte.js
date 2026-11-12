@@ -35,7 +35,7 @@ TEXTE.einverstaendnis = () => `
   <p>Personen ab 18 Jahren mit einem Computer oder Laptop.</p>
 
   <h3>Wie läuft die Teilnahme ab?</h3>
-  <p>Zuerst beantworten Sie kurze Fragen zu Ihrer Brettspielerfahrung. Danach lesen Sie drei
+  <p>Zuerst beantworten Sie kurze Fragen zu Ihrer Person und Ihrer Brettspielerfahrung. Danach lesen Sie drei
   Spielanleitungen in Ihrem eigenen Tempo und beantworten jeweils Fragen zur Verständlichkeit, zur Anstrengung
   beim Lesen und zu den Regeln. Zum Schluss folgen eine kurze Lese- und eine Gedächtnisaufgabe.</p>
   <p>Die Teilnahme dauert ca. ${CONFIG.DAUER_MIN} Minuten. Zwischen den Anleitungen können Sie Pausen machen.
@@ -55,7 +55,8 @@ TEXTE.einverstaendnis = () => `
   E-Mail benachrichtigt.</p>
 
   <h3>Welche Daten werden erhoben und wie werden sie verwendet?</h3>
-  <p><strong>Studiendaten:</strong> Wir erheben anonym Ihre Brettspielerfahrung sowie Ihre Antworten zu den Anleitungen und Ihre Ergebnisse in der Lese- und
+  <p><strong>Studiendaten:</strong> Wir erheben anonym Ihr Alter, Ihr Geschlecht, Ihr Wohnland, Ihre
+  Muttersprache und Ihre Brettspielerfahrung sowie Ihre Antworten zu den Anleitungen und Ihre Ergebnisse in der Lese- und
   Gedächtnisaufgabe (einschliesslich Bearbeitungszeiten). Wir nutzen sie, um den Einfluss der Gestaltung auf das
   Verständnis zu untersuchen. Die Daten werden verschlüsselt und passwortgeschützt an der ETH Zürich gespeichert.
   Zugriff haben nur die Projektmitglieder sowie, zu Kontrollzwecken und unter strikter Vertraulichkeit, die
@@ -85,6 +86,54 @@ TEXTE.einverstaendnis = () => `
   </label>
   <p class="hinweis">Ohne Aktivieren des Kontrollkästchens kann die Studie nicht gestartet werden.</p>
 </div>`;
+
+/* ---------------------------------------------------------------------
+   Angaben zur Person
+   «Andere/anderes» öffnet ein Textfeld. Personen unter 18 werden
+   freundlich verabschiedet; ihre Daten werden nicht gespeichert.
+   --------------------------------------------------------------------- */
+TEXTE.person = `
+<div class="textseite formular">
+  <h2>Angaben zu Ihrer Person</h2>
+
+  <p><label>Wie alt sind Sie? (in Jahren)<br>
+    <input type="number" name="alter" min="1" max="110" step="1" required></label></p>
+
+  <p>Welchem Geschlecht ordnen Sie sich zu?<br>
+    <label><input type="radio" name="geschlecht" value="männlich" required> männlich</label><br>
+    <label><input type="radio" name="geschlecht" value="weiblich"> weiblich</label><br>
+    <label><input type="radio" name="geschlecht" value="divers"> divers</label></p>
+
+  <p><label>In welchem Land wohnen Sie?<br>
+    <select name="wohnland" required onchange="andereFeld(this, 'wohnland_andere')">
+      <option value="" disabled selected>Bitte wählen</option>
+      <option>Schweiz</option><option>Deutschland</option><option>Österreich</option>
+      <option>Liechtenstein</option><option value="anderes">anderes Land</option>
+    </select></label>
+    <input type="text" name="wohnland_andere" id="wohnland_andere" placeholder="Welches Land?" style="display:none"></p>
+
+  <p><label>Was ist Ihre Muttersprache?<br>
+    <select name="muttersprache" required onchange="andereFeld(this, 'muttersprache_andere')">
+      <option value="" disabled selected>Bitte wählen</option>
+      <option>Deutsch</option><option>Französisch</option><option>Italienisch</option>
+      <option>Rätoromanisch</option><option>Englisch</option><option value="andere">andere Sprache</option>
+    </select></label>
+    <input type="text" name="muttersprache_andere" id="muttersprache_andere" placeholder="Welche Sprache?" style="display:none"></p>
+  <p class="hinweis">Bei mehreren Muttersprachen wählen Sie bitte die Sprache, die Sie am besten beherrschen.</p>
+</div>`;
+
+/** Zeigt das Textfeld für «anderes/andere» an und macht es zum Pflichtfeld. */
+function andereFeld(select, feldId) {
+  const feld = document.getElementById(feldId);
+  const an = select.value === "anderes" || select.value === "andere";
+  feld.style.display = an ? "inline-block" : "none";
+  feld.required = an;
+  if (!an) feld.value = "";
+}
+
+TEXTE.zu_jung = `<div class="textseite"><h2>Vielen Dank für Ihr Interesse!</h2>
+  <p>Leider können an dieser Studie nur Personen ab 18 Jahren teilnehmen. Ihre Angaben wurden nicht gespeichert.</p>
+  <p>Sie können dieses Fenster jetzt schliessen.</p></div>`;
 
 /* ---------------------------------------------------------------------
    Brettspielaffinität (drei Fragen; 2b nur bei Bedarf)

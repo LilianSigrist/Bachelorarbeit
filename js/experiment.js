@@ -6,7 +6,7 @@
    Ablauf gemäss Ethikantrag 2.2:
      1. Technische Prüfung (Computer, Fenstergrösse)
      2. Studieninformation und Einverständnis
-     3. Brettspielaffinität
+     3. Angaben zur Person (Alter, Geschlecht, Wohnland, Muttersprache) und Brettspielaffinität
      4. Drei Spielanleitungen (lesen, Verständlichkeit, Cognitive Load, Verständnisfragen)
      5. Lesefertigkeit (SLS-Berlin)
      6. Arbeitsgedächtnis (Word Span Task)
@@ -109,7 +109,22 @@ function ablaufErstellen(jsPsych, gruppe, teilnahmeId) {
     data: { aufgabe: "einverstaendnis" },
   });
 
-  /* 3. Brettspielaffinität (Frage 2b nur, wenn bei Frage 2 nicht «nie») */
+  /* 3a. Angaben zur Person (unter 18: Abbruch ohne Speicherung) */
+  timeline.push({
+    type: jsPsychSurveyHtmlForm,
+    html: TEXTE.person,
+    button_label: "Weiter",
+    data: { aufgabe: "person" },
+    on_finish: (d) => {
+      d.alter = parseInt(d.response.alter, 10);
+      d.geschlecht = d.response.geschlecht;
+      d.wohnland = d.response.wohnland === "anderes" ? (d.response.wohnland_andere || "").trim() : d.response.wohnland;
+      d.muttersprache = d.response.muttersprache === "andere" ? (d.response.muttersprache_andere || "").trim() : d.response.muttersprache;
+      if (!(d.alter >= 18)) jsPsych.abortExperiment(TEXTE.zu_jung);
+    },
+  });
+
+  /* 3b. Brettspielaffinität (Frage 2b nur, wenn bei Frage 2 nicht «nie») */
   const bsFrage = (f) => ({ name: f.name, prompt: f.prompt, options: f.options, required: true });
   timeline.push({
     type: jsPsychSurveyMultiChoice,

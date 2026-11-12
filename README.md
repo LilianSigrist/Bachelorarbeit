@@ -7,7 +7,7 @@ Aufbau und Texte folgen dem Ethikantrag. Offene Stellen sind mit `[[doppelten ec
 
 1. Technische Prüfung (nur Computer/Laptop, Mindestgrösse des Fensters)
 2. Studieninformation und Einverständnis (Ethikantrag A1.3)
-3. Fragen zur Brettspielerfahrung (Frage 2b nur, wenn bei Frage 2 nicht «nie»)
+3. Angaben zur Person (Alter, Geschlecht, Wohnland, Muttersprache; unter 18 Jahren: Abbruch ohne Speicherung) und Fragen zur Brettspielerfahrung (Frage 2b nur, wenn bei Frage 2 nicht «nie»)
 4. Drei Spielanleitungen. Nach jeder: Verständlichkeit (10 Items, zufällige Reihenfolge), Cognitive Load Questionnaire (15 Items, Krieglstein et al., 2023), Verständnisfragen
 5. Lesefertigkeit (SLS-Berlin, 3 Minuten)
 6. Arbeitsgedächtnis (Word Span Task: Übung, dann Listen mit 3–7 Wörtern; Abbruch, wenn beide Listen einer Länge falsch sind)
@@ -62,6 +62,7 @@ Die Studie ist dann unter `https://liliansigrist.github.io/bachelorarbeit/` erre
 | `teilnahme_id` | zufällige ID (auch Dateiname bei DataPipe) |
 | `gruppe`, `gruppe_quelle` | Sequenzgruppe 1–8 und wie sie zugeteilt wurde (datapipe / zufall / url) |
 | `aufgabe` | Art des Trials (z. B. `lesen`, `verstaendlichkeit`, `cognitive_load`, `verstaendnisfragen`, `sls`, `wordspan`) |
+| `alter`, `geschlecht`, `wohnland`, `muttersprache` | Angaben zur Person (in der Zeile `aufgabe = person`) |
 | `position`, `spiel`, `bedingung`, `kohaerenz`, `beispiel`, `bild` | Angaben zur jeweiligen Anleitung |
 | `rt`, `lesezeit_s` | Bearbeitungszeit in ms bzw. Lesezeit in Sekunden |
 | `response` | Antworten (bei Fragebögen als JSON mit Item-Namen; `_inv` = invertiertes Item, noch nicht umgepolt) |
