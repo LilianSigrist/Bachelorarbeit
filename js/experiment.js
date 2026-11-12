@@ -118,8 +118,8 @@ function ablaufErstellen(jsPsych, gruppe, teilnahmeId) {
     on_finish: (d) => {
       d.alter = parseInt(d.response.alter, 10);
       d.geschlecht = d.response.geschlecht;
-      d.wohnland = d.response.wohnland === "anderes" ? (d.response.wohnland_andere || "").trim() : d.response.wohnland;
-      d.muttersprache = d.response.muttersprache === "andere" ? (d.response.muttersprache_andere || "").trim() : d.response.muttersprache;
+      d.wohnland = (d.response.wohnland || "").trim();
+      d.muttersprache = (d.response.muttersprache || "").trim();
       if (!(d.alter >= 18)) jsPsych.abortExperiment(TEXTE.zu_jung);
     },
   });

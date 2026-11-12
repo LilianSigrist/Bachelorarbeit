@@ -89,7 +89,7 @@ TEXTE.einverstaendnis = () => `
 
 /* ---------------------------------------------------------------------
    Angaben zur Person
-   «Andere/anderes» öffnet ein Textfeld. Personen unter 18 werden
+   Personen unter 18 werden
    freundlich verabschiedet; ihre Daten werden nicht gespeichert.
    --------------------------------------------------------------------- */
 TEXTE.person = `
@@ -105,31 +105,12 @@ TEXTE.person = `
     <label><input type="radio" name="geschlecht" value="divers"> divers</label></p>
 
   <p><label>In welchem Land wohnen Sie?<br>
-    <select name="wohnland" required onchange="andereFeld(this, 'wohnland_andere')">
-      <option value="" disabled selected>Bitte wählen</option>
-      <option>Schweiz</option><option>Deutschland</option><option>Österreich</option>
-      <option>Liechtenstein</option><option value="anderes">anderes Land</option>
-    </select></label>
-    <input type="text" name="wohnland_andere" id="wohnland_andere" placeholder="Welches Land?" style="display:none"></p>
+    <input type="text" name="wohnland" size="30" required></label></p>
 
   <p><label>Was ist Ihre Muttersprache?<br>
-    <select name="muttersprache" required onchange="andereFeld(this, 'muttersprache_andere')">
-      <option value="" disabled selected>Bitte wählen</option>
-      <option>Deutsch</option><option>Französisch</option><option>Italienisch</option>
-      <option>Rätoromanisch</option><option>Englisch</option><option value="andere">andere Sprache</option>
-    </select></label>
-    <input type="text" name="muttersprache_andere" id="muttersprache_andere" placeholder="Welche Sprache?" style="display:none"></p>
-  <p class="hinweis">Bei mehreren Muttersprachen wählen Sie bitte die Sprache, die Sie am besten beherrschen.</p>
+    <input type="text" name="muttersprache" size="30" required></label></p>
+  <p class="hinweis">Bei mehreren Muttersprachen können Sie alle angeben.</p>
 </div>`;
-
-/** Zeigt das Textfeld für «anderes/andere» an und macht es zum Pflichtfeld. */
-function andereFeld(select, feldId) {
-  const feld = document.getElementById(feldId);
-  const an = select.value === "anderes" || select.value === "andere";
-  feld.style.display = an ? "inline-block" : "none";
-  feld.required = an;
-  if (!an) feld.value = "";
-}
 
 TEXTE.zu_jung = `<div class="textseite"><h2>Vielen Dank für Ihr Interesse!</h2>
   <p>Leider können an dieser Studie nur Personen ab 18 Jahren teilnehmen. Ihre Angaben wurden nicht gespeichert.</p>

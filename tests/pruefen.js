@@ -63,7 +63,7 @@ function laufen(knoten) {
     if (t === "jsPsychSurveyMultiChoice") {
       const qs = ev(k.questions); d.response = {}; qs.forEach((q) => (d.response[q.name] = q.options[1]));
     } else if (t === "jsPsychSurveyHtmlForm") {
-      d.response = k.data.aufgabe === "person" ? { alter: String(testAlter), geschlecht: "divers", wohnland: "anderes", wohnland_andere: " Italien ", muttersprache: "Deutsch" }
+      d.response = k.data.aufgabe === "person" ? { alter: String(testAlter), geschlecht: "divers", wohnland: " Italien ", muttersprache: "Deutsch" }
         : k.data.aufgabe === "wordspan" ? { antwort: (k.data.listenlaenge >= falschAb ? "xx" : k.data.liste) } : {};
     } else if (t === "jsPsychHtmlButtonResponse") { ev(k.stimulus); ev(k.trial_duration); d.response = 0; }
     else if (t === "jsPsychHtmlKeyboardResponse") ev(k.stimulus);
