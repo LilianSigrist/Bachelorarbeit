@@ -104,13 +104,27 @@ TEXTE.person = `
     <label><input type="radio" name="geschlecht" value="weiblich"> weiblich</label><br>
     <label><input type="radio" name="geschlecht" value="divers"> divers</label></p>
 
-  <p><label>In welchem Land wohnen Sie?<br>
-    <input type="text" name="wohnland" size="30" required></label></p>
+  <p>In welchem Land wohnen Sie?<br>
+    <label><input type="radio" name="wohnland" value="Deutschland" required onchange="andereFeld('wohnland')"> Deutschland</label><br>
+    <label><input type="radio" name="wohnland" value="Schweiz" onchange="andereFeld('wohnland')"> Schweiz</label><br>
+    <label><input type="radio" name="wohnland" value="anderes" onchange="andereFeld('wohnland')"> anderes Land:</label>
+    <input type="text" name="wohnland_andere" id="wohnland_andere" placeholder="Welches Land?" style="display:none"></p>
 
-  <p><label>Was ist Ihre Muttersprache?<br>
-    <input type="text" name="muttersprache" size="30" required></label></p>
-  <p class="hinweis">Bei mehreren Muttersprachen können Sie alle angeben.</p>
+  <p>Was ist Ihre Muttersprache?<br>
+    <label><input type="radio" name="muttersprache" value="Deutsch" required onchange="andereFeld('muttersprache')"> Deutsch</label><br>
+    <label><input type="radio" name="muttersprache" value="andere" onchange="andereFeld('muttersprache')"> andere:</label>
+    <input type="text" name="muttersprache_andere" id="muttersprache_andere" placeholder="Welche?" style="display:none"></p>
 </div>`;
+
+/** Zeigt bei «anderes/andere» das Textfeld an und macht es zum Pflichtfeld. */
+function andereFeld(name) {
+  const wahl = document.querySelector(`input[name="${name}"]:checked`);
+  const feld = document.getElementById(`${name}_andere`);
+  const an = !!wahl && (wahl.value === "anderes" || wahl.value === "andere");
+  feld.style.display = an ? "inline-block" : "none";
+  feld.required = an;
+  if (an) feld.focus(); else feld.value = "";
+}
 
 TEXTE.zu_jung = `<div class="textseite"><h2>Vielen Dank für Ihr Interesse!</h2>
   <p>Leider können an dieser Studie nur Personen ab 18 Jahren teilnehmen. Ihre Angaben wurden nicht gespeichert.</p>
