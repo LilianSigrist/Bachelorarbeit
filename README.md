@@ -26,6 +26,7 @@ heruntergeladen werden. Oben erscheint ein blauer Balken mit der Gruppe.
 
 - `…/index.html?test=1` – Testmodus (auch wenn DataPipe schon eingerichtet ist)
 - `…/index.html?test=1&gruppe=5` – eine bestimmte Sequenzgruppe testen
+- `…/index.html?test=1&schnell=1` – ohne die Mindestlesezeit von 3 Minuten pro Anleitung
 
 Technischer Selbsttest (für Claude): `node tests/pruefen.js`
 

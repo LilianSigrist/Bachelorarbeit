@@ -20,6 +20,8 @@
 const STUDIEN_VERSION = "0.1";
 const URL_PARAMS = new URLSearchParams(window.location.search);
 const TESTMODUS = URL_PARAMS.get("test") === "1" || !CONFIG.DATAPIPE_ID;
+// Mindestlesezeit; im Testmodus mit &schnell=1 abschaltbar
+const MIN_LESEZEIT_MS = (TESTMODUS && URL_PARAMS.get("schnell") === "1") ? 0 : CONFIG.MIN_LESEZEIT_S * 1000;
 
 /* ---------------- Hilfsfunktionen ---------------- */
 
@@ -178,7 +180,13 @@ function ablaufErstellen(jsPsych, gruppe, teilnahmeId) {
       type: jsPsychHtmlButtonResponse,
       stimulus: anleitungHTML(spielNr, bedingung),
       choices: ["Ich habe die Anleitung gelesen – weiter"],
-      data: { ...info, aufgabe: "lesen" },
+      data: { ...info, aufgabe: "lesen", min_lesezeit_s: MIN_LESEZEIT_MS / 1000 },
+      // Unsichtbarer Timer: Button erst nach der Mindestlesezeit aktiv
+      on_load: () => {
+        const knoepfe = document.querySelectorAll(".jspsych-content button");
+        knoepfe.forEach((k) => { k.disabled = true; });
+        setTimeout(() => knoepfe.forEach((k) => { k.disabled = false; }), MIN_LESEZEIT_MS);
+      },
       on_finish: (d) => { d.lesezeit_s = Math.round(d.rt / 100) / 10; },
     });
 

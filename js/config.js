@@ -71,6 +71,13 @@ const CONFIG = {
   MIN_HOEHE: 600,
 
   // ---------------------------------------------------------------
+  // Mindestlesezeit pro Anleitung in Sekunden: Der «Weiter»-Button ist
+  // vorher deaktiviert (ohne sichtbaren Countdown).
+  // Zum Testen ohne Warten: index.html?test=1&schnell=1
+  // ---------------------------------------------------------------
+  MIN_LESEZEIT_S: 180,
+
+  // ---------------------------------------------------------------
   // Lesefertigkeit (SLS-Berlin): Zeitlimit in Sekunden
   // ---------------------------------------------------------------
   SLS_ZEIT_S: 180,

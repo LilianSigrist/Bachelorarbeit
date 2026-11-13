@@ -65,7 +65,7 @@ function laufen(knoten) {
     } else if (t === "jsPsychSurveyHtmlForm") {
       d.response = k.data.aufgabe === "person" ? { alter: String(testAlter), geschlecht: "divers", wohnland: "anderes", wohnland_andere: " Italien ", muttersprache: "Deutsch" }
         : k.data.aufgabe === "wordspan" ? { antwort: (k.data.listenlaenge >= falschAb ? "xx" : k.data.liste) } : {};
-    } else if (t === "jsPsychHtmlButtonResponse") { ev(k.stimulus); ev(k.trial_duration); d.response = 0; }
+    } else if (t === "jsPsychHtmlButtonResponse") { if (k.data.aufgabe === "lesen") pruefe(k.on_load && k.data.min_lesezeit_s === 180, "Mindestlesezeit fehlt"); ev(k.stimulus); ev(k.trial_duration); d.response = 0; }
     else if (t === "jsPsychHtmlKeyboardResponse") ev(k.stimulus);
     if (k.on_finish) k.on_finish(d);
     daten.push(d);
