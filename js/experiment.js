@@ -178,9 +178,11 @@ function ablaufErstellen(jsPsych, gruppe, teilnahmeId) {
   });
 
   /* 4. Drei Spielanleitungen */
-  const bedingungen = CONFIG.YOUDEN[gruppe];
-  CONFIG.SPIELE.forEach((spielNr, i) => {
-    const bedingung = bedingungen[i];
+  // Spiel k bekommt die Bedingung aus Spalte k des Youden Square;
+  // danach wird (optional) die Lesereihenfolge der drei Paare gemischt.
+  let paare = CONFIG.SPIELE.map((spielNr, k) => ({ spielNr, bedingung: CONFIG.YOUDEN[gruppe][k] }));
+  if (CONFIG.REIHENFOLGE_ZUFAELLIG) paare = mischen(paare);
+  paare.forEach(({ spielNr, bedingung }, i) => {
     const b = CONFIG.BEDINGUNGEN[bedingung];
     const info = {
       position: i + 1,

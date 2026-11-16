@@ -12,17 +12,24 @@
 
 const leer = () => ({ 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [] });
 
+// PROVISORISCH: Es gibt erst eine Version pro Spiel. Sie wird für alle 8 Bedingungen
+// verwendet, bis die 8 Varianten fertig sind.
+const provisorisch = (nr) => {
+  const seiten = [1, 2, 3].map((s) => `anleitungen/${nr}/provisorisch_seite-${s}.jpg`);
+  return { 1: seiten, 2: seiten, 3: seiten, 4: seiten, 5: seiten, 6: seiten, 7: seiten, 8: seiten };
+};
+
 const ANLEITUNGEN = {
   "01": { titel: "Glimmerhain",             versionen: leer() },
-  "11": { titel: "Kräuterhof",              versionen: leer() },
+  "11": { titel: "Kräuterhof",              versionen: provisorisch("11") },
   "12": { titel: "Gleisfieber",             versionen: leer() },
   "13": { titel: "Olymp-Aufstieg",          versionen: leer() },
   "14": { titel: "Dampfwerk",               versionen: leer() },
   "15": { titel: "Silberpfeil",             versionen: leer() },
   "16": { titel: "Kunsthandel",             versionen: leer() },
-  "17": { titel: "Kommissar Nebelschleier", versionen: leer() },
+  "17": { titel: "Kommissar Nebelschleier", versionen: provisorisch("17") },
   "18": { titel: "Nebelhaus",               versionen: leer() },
-  "19": { titel: "Karawanenbasar",          versionen: leer() },
+  "19": { titel: "Karawanenbasar",          versionen: provisorisch("19") },
 };
 
 /* ---------------------------------------------------------------------

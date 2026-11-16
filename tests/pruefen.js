@@ -82,7 +82,9 @@ for (let g = 1; g <= 8; g++) {
   laufen(tl);
   const lesen = daten.filter((d) => d.aufgabe === "lesen");
   pruefe(lesen.length === 3, `Gruppe ${g}: ${lesen.length} statt 3 Anleitungen`);
-  pruefe(lesen.map((d) => d.bedingung).join() === CONFIG.YOUDEN[g].join(), `Gruppe ${g}: falsche Bedingungen`);
+  const proSpiel = Object.fromEntries(lesen.map((d) => [d.spiel, d.bedingung]));
+  pruefe(CONFIG.SPIELE.every((sp, k) => proSpiel[sp] === CONFIG.YOUDEN[g][k]), `Gruppe ${g}: falsche Bedingungen`);
+  pruefe(lesen.map((d) => d.position).join() === "1,2,3", `Gruppe ${g}: Positionen`);
   const ws = daten.filter((d) => d.aufgabe === "wordspan" && !d.uebung);
   pruefe(ws.length === 10 && ws.every((d) => d.alles_richtig), `Gruppe ${g}: Word-Span-Auswertung (${ws.length})`);
   pruefe(daten.some((d) => d.aufgabe === "brettspiel_2"), `Gruppe ${g}: Frage 2b fehlt`);
@@ -99,6 +101,11 @@ for (let g = 1; g <= 8; g++) {
   pruefe(daten.filter((d) => d.aufgabe === "sls").length === ctx.TEXTE.sls_saetze.length, `Gruppe ${g}: SLS`);
   pruefe(daten.filter((d) => d.aufgabe === "verstaendnisfragen").every((d) => d.vf_anzahl === 2), `Gruppe ${g}: VF`);
 }
+// Reihenfolge wird gemischt
+const reihen = new Set();
+for (let n = 0; n < 60; n++) { daten.length = 0; laufen(ctx.ablaufErstellen(fake, 1, "test")); reihen.add(daten.filter((d) => d.aufgabe === "lesen").map((d) => d.spiel).join()); }
+pruefe(reihen.size === 6, `Reihenfolge nicht zufällig (${reihen.size} von 6 Reihenfolgen)`);
+
 // Unter 18: Abbruch
 testAlter = 17; daten.length = 0;
 laufen(ctx.ablaufErstellen(fake, 1, "test"));

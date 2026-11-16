@@ -32,11 +32,13 @@ const CONFIG = {
   LOESCHUNG_BIS: "[[xx]]", // Löschung der E-Mail-Adressen
 
   // ---------------------------------------------------------------
-  // Die drei Spiele der Studie, in der Lesereihenfolge (Spiel 1, 2, 3).
+  // Die drei Spiele der Studie (Spiel 1, 2, 3 im Youden Square).
   // Gültige Nummern: siehe js/anleitungen.js (01, 11–19).
-  // [[Auswahl der drei finalen Spiele festlegen]]
+  // Jedes Spiel behält die Bedingung aus dem Youden Square; mit
+  // REIHENFOLGE_ZUFAELLIG wird nur die Lesereihenfolge pro Person gemischt.
   // ---------------------------------------------------------------
-  SPIELE: ["01", "11", "12"],
+  SPIELE: ["17", "19", "11"],
+  REIHENFOLGE_ZUFAELLIG: true,
 
   // ---------------------------------------------------------------
   // Die 8 Bedingungen des 2 × 2 × 2-Designs (aus der Poweranalyse)

@@ -19,7 +19,9 @@ Aufbau und Texte folgen dem Ethikantrag. Offene Stellen sind mit `[[doppelten ec
 
 2 × 2 × 2 (Kohärenz × Beispiel × Bild), jede Person liest 3 der 8 Bedingungen.
 Die Zuteilung erfolgt über ein Youden Square mit 8 Sequenzgruppen (`js/config.js`, `YOUDEN`).
-Die drei Spiele werden immer in derselben Reihenfolge gelesen (Spiel 1, 2, 3), die Bedingung wechselt je nach Gruppe.
+Jedes der drei Spiele erhält die Bedingung aus seiner Spalte im Youden Square. Die Lesereihenfolge der drei Spiele wird pro Person zufällig gemischt (`REIHENFOLGE_ZUFAELLIG`); die Position steht in der Spalte `position`.
+
+**Provisorisch:** Für Kommissar Nebelschleier (17), Karawanenbasar (19) und Kräuterhof (11) gibt es erst eine Version, die für alle 8 Bedingungen verwendet wird.
 
 ## Testen
 
