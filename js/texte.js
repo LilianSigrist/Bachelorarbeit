@@ -7,6 +7,25 @@
 const TEXTE = {};
 
 /* ---------------------------------------------------------------------
+   Begrüssung (erste Seite)
+   --------------------------------------------------------------------- */
+TEXTE.willkommen = () => `
+<div class="textseite">
+  <h1>Herzlich willkommen!</h1>
+  <p>Schön, dass du bei meiner Online-Studie <strong>«Spielregeln ohne Overload»</strong> mitmachst. Sie ist Teil
+  meiner Bachelorarbeit im Studiengang Psychologie an der ZHAW. Ich möchte untersuchen, welche Faktoren das
+  Verständnis von Spielregeln beeinflussen.</p>
+  <p>Dazu siehst du dir gleich drei Prototypen von Spielanleitungen an, die es so noch gar nicht gibt. Bitte lies sie
+  aufmerksam durch. Nach jeder Anleitung fragen wir dich, wie verständlich und wie anstrengend du sie fandest, und
+  stellen dir ein paar Fragen zu den Regeln. Zum Schluss folgen eine kurze Lese- und eine Gedächtnisaufgabe.
+  Insgesamt dauert das etwa ${CONFIG.DAUER_MIN} Minuten. Bitte nimm an einem Computer und an einem ruhigen Ort teil.</p>
+  <p>Mit deiner Teilnahme hilfst du mir bei meiner Bachelorarbeit und unterstützt den wissenschaftlichen
+  Erkenntnisgewinn!</p>
+  <p>Als Dankeschön verlosen wir unter allen, die die Studie vollständig abschliessen, ${CONFIG.VERLOSUNG_TEXT}.</p>
+  <p>Viele Grüsse<br>Lilian</p>
+</div>`;
+
+/* ---------------------------------------------------------------------
    Studieninformation und Einverständnis (Ethikantrag A1.3)
    --------------------------------------------------------------------- */
 TEXTE.einverstaendnis = () => `
@@ -199,6 +218,30 @@ TEXTE.clq = [
   { name: "gcl6", prompt: "?? (Original: Ich konnte mein bestehendes Wissen mit den Lerninhalten erweitern.)" },
   { name: "gcl7", prompt: "Das Regelwissen, das ich durch die Spielanleitung erworben habe, kann ich schnell und sicher im Spiel anwenden." },
 ];
+
+/* ---------------------------------------------------------------------
+   Aufmerksamkeitschecks: einer pro Spiel, versteckt in den Skalen.
+   skala: "verstaendlichkeit" (zufällige Position) oder "clq" (feste Position)
+   erwartet: richtige Antwort, gezählt ab 0 (1. Skalenpunkt = 0, 9. = 8)
+   --------------------------------------------------------------------- */
+TEXTE.aufmerksamkeit = [
+  { name: "ak1", skala: "clq", position: 7, erwartet: 8,
+    prompt: "Bitte kreuzen Sie bei dieser Aussage die 9 an." },
+  { name: "ak2", skala: "verstaendlichkeit", erwartet: 0,
+    prompt: "Bitte kreuzen Sie bei dieser Aussage «stimmt überhaupt nicht» an." },
+  { name: "ak3", skala: "clq", position: 11, erwartet: 2,
+    prompt: "Bitte kreuzen Sie bei dieser Aussage die 3 an." },
+];
+
+/* ---------------------------------------------------------------------
+   Offene Frage am Schluss
+   --------------------------------------------------------------------- */
+TEXTE.kommentar = `
+<div class="textseite formular">
+  <h2>Möchten Sie uns noch etwas mitteilen?</h2>
+  <p>Hier ist Platz für Anmerkungen, Fragen oder Rückmeldungen zur Studie (freiwillig).</p>
+  <textarea name="kommentar" rows="6" style="width:100%; font-size:1em; padding:6px;"></textarea>
+</div>`;
 
 /* ---------------------------------------------------------------------
    Lesefertigkeit SLS-Berlin (Ethikantrag A2.8)

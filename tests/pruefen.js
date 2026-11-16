@@ -67,6 +67,11 @@ function laufen(knoten) {
         : k.data.aufgabe === "wordspan" ? { antwort: (k.data.listenlaenge >= falschAb ? "xx" : k.data.liste) } : {};
     } else if (t === "jsPsychHtmlButtonResponse") { if (k.data.aufgabe === "lesen") pruefe(k.on_load && k.data.min_lesezeit_s === 180, "Mindestlesezeit fehlt"); ev(k.stimulus); ev(k.trial_duration); d.response = 0; }
     else if (t === "jsPsychHtmlKeyboardResponse") ev(k.stimulus);
+    else if (t === "jsPsychSurveyLikert") {
+      const qs = ev(k.questions); d.response = {};
+      qs.forEach((q) => { const ak = ctx.TEXTE.aufmerksamkeit.find((a) => a.name === q.name); d.response[q.name] = ak ? ak.erwartet : 1; });
+      d._fragen = qs.map((q) => q.name);
+    }
     if (k.on_finish) k.on_finish(d);
     daten.push(d);
   }
@@ -84,6 +89,11 @@ for (let g = 1; g <= 8; g++) {
   const pers = daten.find((d) => d.aufgabe === "person");
   pruefe(pers && pers.alter === 25 && pers.wohnland === "Italien" && pers.muttersprache === "Deutsch" && abgebrochen === null, `Gruppe ${g}: Personenseite`);
   pruefe(daten.filter((d) => d.aufgabe === "cognitive_load").length === 3, `Gruppe ${g}: CLQ`);
+  const aks = daten.filter((d) => d.ak_name);
+  pruefe(aks.map((d) => d.ak_name).join() === "ak1,ak2,ak3" && aks.every((d) => d.ak_bestanden), `Gruppe ${g}: Aufmerksamkeitschecks`);
+  pruefe(aks[0]._fragen.length === 16 && aks[0]._fragen[7] === "ak1", `Gruppe ${g}: Position ak1`);
+  pruefe(daten.filter((d) => d.aufgabe === "verstaendlichkeit").map((d) => d._fragen.length).join() === "10,11,10", `Gruppe ${g}: ak2 in Verständlichkeit`);
+  pruefe(daten[0].aufgabe === "willkommen" && daten.some((d) => d.aufgabe === "kommentar"), `Gruppe ${g}: Begrüssung/Kommentar`);
   const woerter = daten.filter((d) => d.aufgabe === "wordspan").flatMap((d) => d.liste.split(" "));
   pruefe(new Set(woerter).size === woerter.length && !woerter.includes(""), `Gruppe ${g}: Wörter doppelt/zu wenige`);
   pruefe(daten.filter((d) => d.aufgabe === "sls").length === ctx.TEXTE.sls_saetze.length, `Gruppe ${g}: SLS`);

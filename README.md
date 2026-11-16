@@ -5,12 +5,14 @@ Aufbau und Texte folgen dem Ethikantrag. Offene Stellen sind mit `[[doppelten ec
 
 ## Ablauf
 
+0. Begrüssung
 1. Technische Prüfung (nur Computer/Laptop, Mindestgrösse des Fensters)
 2. Studieninformation und Einverständnis (Ethikantrag A1.3)
 3. Angaben zur Person (Alter, Geschlecht, Wohnland, Muttersprache; unter 18 Jahren: Abbruch ohne Speicherung) und Fragen zur Brettspielerfahrung (Frage 2b nur, wenn bei Frage 2 nicht «nie»)
 4. Drei Spielanleitungen. Nach jeder: Verständlichkeit (10 Items, zufällige Reihenfolge), Cognitive Load Questionnaire (15 Items, Krieglstein et al., 2023), Verständnisfragen
 5. Lesefertigkeit (SLS-Berlin, 3 Minuten)
 6. Arbeitsgedächtnis (Word Span Task: Übung, dann Listen mit 3–7 Wörtern; Abbruch, wenn beide Listen einer Länge falsch sind)
+6b. Offene Frage «Möchten Sie uns noch etwas mitteilen?» (freiwillig)
 7. Speichern der Daten, Abschlussseite mit Link zum separaten Verlosungsformular
 
 ## Design
@@ -58,6 +60,9 @@ Die Studie ist dann unter `https://liliansigrist.github.io/bachelorarbeit/` erre
 
 ## Wichtige Datenspalten
 
+Achtung: jsPsych speichert Skalenantworten ab 0. Auf der 5er-Skala ist «1» also 0 und «5» ist 4, auf der 9er-Skala ist «9» gleich 8.
+
+
 | Spalte | Bedeutung |
 |---|---|
 | `teilnahme_id` | zufällige ID (auch Dateiname bei DataPipe) |
@@ -67,6 +72,8 @@ Die Studie ist dann unter `https://liliansigrist.github.io/bachelorarbeit/` erre
 | `position`, `spiel`, `bedingung`, `kohaerenz`, `beispiel`, `bild` | Angaben zur jeweiligen Anleitung |
 | `rt`, `lesezeit_s` | Bearbeitungszeit in ms bzw. Lesezeit in Sekunden |
 | `response` | Antworten (bei Fragebögen als JSON mit Item-Namen; `_inv` = invertiertes Item, noch nicht umgepolt) |
+| `ak_name`, `ak_antwort`, `ak_bestanden` | Aufmerksamkeitscheck (je einer pro Spiel: Spiel 1 und 3 im CLQ, Spiel 2 in der Verständlichkeit) |
+| `kommentar` | Antwort auf die offene Frage am Schluss |
 | `vf_richtig`, `vf_anzahl` | richtig beantwortete Verständnisfragen |
 | `richtig` (sls) | Satz richtig beurteilt; nicht bearbeitete Sätze fehlen |
 | `richtig_in_position`, `alles_richtig` (wordspan) | Word-Span-Auswertung; `uebung = true` beim Übungsdurchgang |

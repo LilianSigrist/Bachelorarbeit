@@ -21,13 +21,13 @@ const CONFIG = {
   DAUER_MIN: "[[xx]]",
 
   // Erhebungszeitraum, Kontakte (erscheinen auf der Startseite)
-  ZEITRAUM: "01.01.2027 – 22.01.2027",
+  ZEITRAUM: "16.01.2027 – 28.02.2027",
   KONTAKT: "Lilian Sigrist, ZHAW, sigrilil@students.zhaw.ch",
-  PROJEKTLEITUNG: "Dr. Christian Thurn, Professur für Lehr- und Lernforschung, ETH Zürich, [[E-Mail]]",
+  PROJEKTLEITUNG: "Dr. Christian Thurn, Professur für Lehr- und Lernforschung, ETH Zürich, christian.thurn@gess.ethz.ch",
   KONTAKT_EMAIL: "sigrilil@students.zhaw.ch",
-  DATENSCHUTZ: "[[offen]]",
+  DATENSCHUTZ: "Tomislav Mitar, tomislav.mitar@sl.ethz.ch",
   ETHIK_NUMMER: "[[XX ETHICS-YYY]]",
-  VERLOSUNG_TEXT: "[[Anzahl]] Gutscheine im Wert von je CHF [[Betrag]]",
+  VERLOSUNG_TEXT: "2 × CHF 50",
   ZIEHUNG_BIS: "[[xx]]",
   LOESCHUNG_BIS: "[[xx]]", // Löschung der E-Mail-Adressen
 

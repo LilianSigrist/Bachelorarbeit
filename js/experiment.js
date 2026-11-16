@@ -4,12 +4,14 @@
    Einstellungen in config.js, Anleitungen in anleitungen.js.
 
    Ablauf gemäss Ethikantrag 2.2:
+     0. Begrüssung
      1. Technische Prüfung (Computer, Fenstergrösse)
      2. Studieninformation und Einverständnis
      3. Angaben zur Person (Alter, Geschlecht, Wohnland, Muttersprache) und Brettspielaffinität
      4. Drei Spielanleitungen (lesen, Verständlichkeit, Cognitive Load, Verständnisfragen)
      5. Lesefertigkeit (SLS-Berlin)
      6. Arbeitsgedächtnis (Word Span Task)
+     6b. Offene Frage («Möchten Sie uns noch etwas mitteilen?»)
      7. Daten speichern, Abschlussseite mit Link zur Verlosung
 
    Test-Links:
@@ -81,11 +83,38 @@ function anleitungHTML(spielNr, bedingung) {
     </div>`;
 }
 
+/** Fügt den Aufmerksamkeitscheck des Spiels (Index i) in eine Skala ein, falls er dorthin gehört. */
+function mitAufmerksamkeitscheck(fragen, skala, i, labels) {
+  const ak = TEXTE.aufmerksamkeit[i];
+  if (!ak || ak.skala !== skala) return fragen;
+  const neu = fragen.slice();
+  const pos = Math.min(ak.position ?? neu.length, neu.length);
+  neu.splice(pos, 0, { name: ak.name, prompt: ak.prompt, labels: labels, required: true });
+  return neu;
+}
+
+/** Wertet den Aufmerksamkeitscheck in den Daten eines Skalen-Trials aus. */
+function aufmerksamkeitAuswerten(d, skala, i) {
+  const ak = TEXTE.aufmerksamkeit[i];
+  if (!ak || ak.skala !== skala) return;
+  d.ak_name = ak.name;
+  d.ak_antwort = d.response[ak.name];
+  d.ak_bestanden = d.ak_antwort === ak.erwartet;
+}
+
 /* ---------------- Aufbau des Ablaufs ---------------- */
 
 function ablaufErstellen(jsPsych, gruppe, teilnahmeId) {
   const timeline = [];
   const ende = (antwort) => jsPsych.data.get().filter({ aufgabe: antwort }).last(1).values()[0];
+
+  /* 0. Begrüssung */
+  timeline.push({
+    type: jsPsychHtmlButtonResponse,
+    stimulus: TEXTE.willkommen(),
+    choices: ["Los geht's"],
+    data: { aufgabe: "willkommen" },
+  });
 
   /* 1. Technische Prüfung */
   timeline.push({
@@ -194,23 +223,25 @@ function ablaufErstellen(jsPsych, gruppe, teilnahmeId) {
       type: jsPsychSurveyLikert,
       preamble: `<h2>Wie verständlich war die Anleitung zu «${info.spiel_titel}»?</h2>
                  <p>Bitte geben Sie an, wie sehr die folgenden Aussagen auf Sie zutreffen.</p>`,
-      questions: TEXTE.verstaendlichkeit.map((it) => ({
+      questions: mitAufmerksamkeitscheck(TEXTE.verstaendlichkeit.map((it) => ({
         name: it.name, prompt: it.prompt, labels: TEXTE.skala5, required: true,
-      })),
+      })), "verstaendlichkeit", i, TEXTE.skala5),
       randomize_question_order: true,
       button_label: "Weiter",
       data: { ...info, aufgabe: "verstaendlichkeit" },
+      on_finish: (d) => aufmerksamkeitAuswerten(d, "verstaendlichkeit", i),
     });
 
     timeline.push({
       type: jsPsychSurveyLikert,
       preamble: `<h2>Wie anstrengend war das Lesen?</h2>
                  <p>Bitte beziehen Sie sich auf die Anleitung zu «${info.spiel_titel}».</p>`,
-      questions: TEXTE.clq.map((it) => ({
+      questions: mitAufmerksamkeitscheck(TEXTE.clq.map((it) => ({
         name: it.name, prompt: it.prompt, labels: TEXTE.clq_skala, required: true,
-      })),
+      })), "clq", i, TEXTE.clq_skala),
       button_label: "Weiter",
       data: { ...info, aufgabe: "cognitive_load" },
+      on_finish: (d) => aufmerksamkeitAuswerten(d, "clq", i),
     });
 
     const fragen = VERSTAENDNISFRAGEN[spielNr];
@@ -339,6 +370,15 @@ function ablaufErstellen(jsPsych, gruppe, teilnahmeId) {
         },
       });
     }
+  });
+
+  /* 6b. Offene Frage */
+  timeline.push({
+    type: jsPsychSurveyHtmlForm,
+    html: TEXTE.kommentar,
+    button_label: "Weiter",
+    data: { aufgabe: "kommentar" },
+    on_finish: (d) => { d.kommentar = (d.response.kommentar || "").trim(); },
   });
 
   /* 7. Daten speichern und Abschluss */
