@@ -54,3 +54,45 @@ const VERSTAENDNISFRAGEN = {};
 for (const [nr, spiel] of Object.entries(ANLEITUNGEN)) {
   VERSTAENDNISFRAGEN[nr] = platzhalterFragen(spiel.titel);
 }
+
+// Fragen aus dem Ethikantrag (2.2.2, Manipulationscheck)
+VERSTAENDNISFRAGEN["11"] = [
+  {
+    frage: "Du nimmst die Karte auf Platz 4 der Samenreihe. Wie viel Wasser musst du dafür auf die Karten legen?",
+    optionen: ["0 Wasser", "1 Wasser", "3 Wasser", "4 Wasser"],
+    korrekt: "3 Wasser",
+  },
+  {
+    frage: "Welche Pflanzen in deinem Garten bringen bei der Endwertung Punkte?",
+    optionen: ["Alle Pflanzen, auch Sämlinge", "Nur ausgewachsene Pflanzen", "Nur Pflanzen auf Sonnenfeldern",
+               "Nur Pflanzen, die zu einem Auftrag gehören"],
+    korrekt: "Nur ausgewachsene Pflanzen",
+  },
+];
+VERSTAENDNISFRAGEN["19"] = [
+  {
+    frage: "Was passiert, wenn du ein Kamel erwirbst?",
+    optionen: ["Die Waren am Stand kosten 1 Münze weniger.", "Du kannst in der Handelszeit einen Tausch mehr machen.",
+               "Dein Handkartenlimit erhöht sich um 1.", "Du darfst 2 Handelskarten ziehen."],
+    korrekt: "Dein Handkartenlimit erhöht sich um 1.",
+  },
+  {
+    frage: "Was ist während der Handelszeit <strong>nicht</strong> erlaubt?",
+    optionen: ["Waren gegen Münzen tauschen", "Mehrere Geschäfte in einer Runde abschliessen",
+               "Über die eigenen Handkarten sprechen", "Die eigenen Handkarten zeigen"],
+    korrekt: "Die eigenen Handkarten zeigen",
+  },
+];
+VERSTAENDNISFRAGEN["17"] = [
+  {
+    frage: "In deinem Notizbuch liegen bereits 6 Hinweise. Du lichtest ein Nebelplättchen. Was passiert?",
+    optionen: ["Du nimmst den Hinweis trotzdem und legst einen anderen zurück.", "Du darfst keinen weiteren Hinweis nehmen.",
+               "Du musst das gelichtete Plättchen wieder umdrehen.", "Du gibst den Hinweis einer anderen Person."],
+    korrekt: "Du darfst keinen weiteren Hinweis nehmen.",
+  },
+  {
+    frage: "Wie viele Aktionen kostet es, einen Fall zu lösen?",
+    optionen: ["Keine", "1 Aktion", "2 Aktionen", "Alle 3 Aktionen eines Zuges"],
+    korrekt: "Keine",
+  },
+];

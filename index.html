@@ -13,15 +13,19 @@
   <script src="https://unpkg.com/@jspsych/plugin-survey-html-form@2"></script>
   <script src="https://unpkg.com/@jspsych/plugin-survey-likert@2"></script>
   <script src="https://unpkg.com/@jspsych/plugin-survey-multi-choice@2"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-call-function@2"></script>
   <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
   <link href="https://unpkg.com/jspsych@8/css/jspsych.css" rel="stylesheet">
 
-  <!-- Studie -->
-  <link href="css/style.css" rel="stylesheet">
-  <script src="js/config.js"></script>
-  <script src="js/anleitungen.js"></script>
-  <script src="js/texte.js"></script>
-  <script src="js/experiment.js"></script>
+  <!-- JATOS: wird nur auf dem JATOS-Server gefunden (auf GitHub Pages harmloser 404) -->
+  <script src="jatos.js"></script>
+
+  <!-- Studie (?v=… verhindert, dass Browser alte Versionen aus dem Cache laden) -->
+  <link href="css/style.css?v=0.2" rel="stylesheet">
+  <script src="js/config.js?v=0.2"></script>
+  <script src="js/anleitungen.js?v=0.2"></script>
+  <script src="js/texte.js?v=0.2"></script>
+  <script src="js/experiment.js?v=0.2"></script>
 </head>
 <body></body>
 </html>

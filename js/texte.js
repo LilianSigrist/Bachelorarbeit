@@ -121,7 +121,8 @@ TEXTE.person = `
   <p>Welchem Geschlecht ordnen Sie sich zu?<br>
     <label><input type="radio" name="geschlecht" value="männlich" required> männlich</label><br>
     <label><input type="radio" name="geschlecht" value="weiblich"> weiblich</label><br>
-    <label><input type="radio" name="geschlecht" value="divers"> divers</label></p>
+    <label><input type="radio" name="geschlecht" value="divers"> divers</label><br>
+    <label><input type="radio" name="geschlecht" value="keine Angabe"> keine Angabe</label></p>
 
   <p>In welchem Land wohnen Sie?<br>
     <label><input type="radio" name="wohnland" value="Deutschland" required onchange="andereFeld('wohnland')"> Deutschland</label><br>
@@ -150,29 +151,27 @@ TEXTE.zu_jung = `<div class="textseite"><h2>Vielen Dank für Ihr Interesse!</h2>
   <p>Sie können dieses Fenster jetzt schliessen.</p></div>`;
 
 /* ---------------------------------------------------------------------
-   Brettspielaffinität (drei Fragen; 2b nur bei Bedarf)
+   Brettspielaffinität (drei Fragen, Ethikantrag 2.2.2 d)
    --------------------------------------------------------------------- */
 TEXTE.brettspiel = [
   {
     name: "bs_spielen",
     prompt: "Wie oft spielen Sie Brettspiele?",
-    options: ["nie", "seltener als einmal pro Jahr", "mehrmals pro Jahr", "etwa einmal pro Monat",
+    options: ["seltener als einmal pro Jahr", "mehrmals pro Jahr", "etwa einmal pro Monat",
               "mehrmals pro Monat", "mindestens einmal pro Woche"],
   },
   {
-    name: "bs_lernen",
-    prompt: "Wie oft lernen Sie die Regeln eines neuen Brettspiels?",
-    options: ["nie", "seltener als einmal pro Jahr", "ein- bis dreimal pro Jahr", "etwa alle zwei bis drei Monate",
-              "etwa einmal pro Monat", "mehrmals pro Monat"],
+    name: "bs_neue",
+    prompt: "Wie oft probieren Sie Brettspiele aus, die Sie noch nicht kennen?",
+    options: ["nie", "seltener als einmal im Jahr", "ein- bis dreimal im Jahr", "etwa alle 2 bis 3 Monate",
+              "etwa einmal im Monat", "mehrmals im Monat"],
   },
   {
-    name: "bs_lernart",
-    prompt: "Wie lernen Sie die Regeln eines neuen Brettspiels meistens?",
-    options: ["Ich lese die Spielanleitung selbst.", "Jemand erklärt mir die Regeln.", "Ich schaue ein Erklärvideo.",
-              "Wir lernen die Regeln gemeinsam beim Spielen.", "Anderes"],
-    nurWenn: (antworten) => antworten.bs_lernen !== "nie", // wird übersprungen, wenn bei bs_lernen «nie»
+    name: "bs_anleitung",
+    prompt: "Wie oft lesen Sie selbst die Spielanleitung, wenn Sie ein neues Brettspiel lernen?",
+    options: ["nie, die Regeln werden mir immer erklärt", "selten", "etwa bei der Hälfte der Spiele",
+              "meistens", "immer"],
   },
-
 ];
 
 /* ---------------------------------------------------------------------
@@ -195,8 +194,8 @@ TEXTE.verstaendlichkeit = [
 
 /* ---------------------------------------------------------------------
    Kognitive Belastung: angepasste Version des Cognitive Load Questionnaire
-   (Krieglstein et al., 2023; 15 Items, CC BY 4.0). Nummerierung wie im Original
-   (GCL2 und GCL4 gibt es in der Endfassung nicht).
+   (Krieglstein et al., 2023; CC BY 4.0). 14 Items: GCL6 entfernt (Ethikantrag),
+   GCL2 und GCL4 gibt es in der Endfassung des Originals nicht.
    --------------------------------------------------------------------- */
 // 9-stufige Skala wie im Original. [[Wortlaut der Endpunkte mit Originalartikel abgleichen]]
 TEXTE.clq_skala = ["1<br>trifft überhaupt nicht zu", "2", "3", "4", "5", "6", "7", "8", "9<br>trifft voll und ganz zu"];
@@ -206,7 +205,7 @@ TEXTE.clq = [
   { name: "icl2", prompt: "Die Erklärungen der Spielregeln waren schwer nachvollziehbar." },
   { name: "icl3", prompt: "Die Spielregeln waren komplex." },
   { name: "icl4", prompt: "Die Spielregeln enthielten viele komplexe Informationen." },
-  { name: "icl5", prompt: "?? (Original: Ohne Vorwissen waren die Informationen nicht verständlich.)" },
+  { name: "icl5", prompt: "Ohne Vorwissen über Brettspiele waren die Informationen nicht verständlich." },
   { name: "ecl1", prompt: "Es war schwierig, einen Überblick über den Aufbau der Spielanleitung zu erlangen." },
   { name: "ecl2", prompt: "Die Gestaltung der Spielanleitung machte es schwer, die Zusammenhänge zwischen den einzelnen Informationen herzustellen." },
   { name: "ecl3", prompt: "Die Spielanleitung war ungünstig gestaltet." },
@@ -215,7 +214,6 @@ TEXTE.clq = [
   { name: "gcl1", prompt: "Ich habe aktiv über die Spielregeln nachgedacht." },
   { name: "gcl3", prompt: "Ich habe mich bemüht, die Spielregeln zu verstehen." },
   { name: "gcl5", prompt: "Ich habe ein umfassendes Verständnis der Spielregeln erlangt." },
-  { name: "gcl6", prompt: "?? (Original: Ich konnte mein bestehendes Wissen mit den Lerninhalten erweitern.)" },
   { name: "gcl7", prompt: "Das Regelwissen, das ich durch die Spielanleitung erworben habe, kann ich schnell und sicher im Spiel anwenden." },
 ];
 

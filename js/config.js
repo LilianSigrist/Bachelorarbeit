@@ -6,10 +6,12 @@
 
 const CONFIG = {
   // ---------------------------------------------------------------
-  // Datenspeicherung über DataPipe (https://pipe.jspsych.org)
-  // Solange hier "" steht, werden KEINE Daten online gespeichert.
-  // Am Ende erscheint dann ein Button, um die Daten als CSV herunterzuladen
-  // (praktisch zum Testen).
+  // Datenspeicherung
+  // Läuft die Studie auf JATOS (DeSciL-Server der ETH), werden die Daten
+  // automatisch in JATOS gespeichert. Hier ist dafür nichts einzustellen.
+  // Alternativ (nur ausserhalb von JATOS): DataPipe (https://pipe.jspsych.org).
+  // Ohne JATOS und ohne DataPipe-ID werden KEINE Daten gespeichert
+  // (Testmodus mit CSV-Download am Ende, z. B. auf GitHub Pages).
   // ---------------------------------------------------------------
   DATAPIPE_ID: "",
 

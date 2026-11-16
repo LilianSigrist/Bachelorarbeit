@@ -7,7 +7,7 @@ const path = require("path");
 const ctx = { console, performance, URLSearchParams, Math, window: { location: { search: "?test=1" }, __KEIN_AUTOSTART__: true } };
 ctx.window.window = ctx.window;
 for (const n of ["jsPsychBrowserCheck", "jsPsychSurveyHtmlForm", "jsPsychSurveyMultiChoice", "jsPsychHtmlButtonResponse",
-  "jsPsychSurveyLikert", "jsPsychHtmlKeyboardResponse", "jsPsychPipe"]) ctx[n] = { name: n };
+  "jsPsychSurveyLikert", "jsPsychHtmlKeyboardResponse", "jsPsychPipe", "jsPsychCallFunction"]) ctx[n] = { name: n };
 vm.createContext(ctx);
 const src = ["config.js", "anleitungen.js", "texte.js", "experiment.js"]
   .map((f) => fs.readFileSync(path.join(__dirname, "..", "js", f), "utf8")).join("\n")
@@ -87,19 +87,19 @@ for (let g = 1; g <= 8; g++) {
   pruefe(lesen.map((d) => d.position).join() === "1,2,3", `Gruppe ${g}: Positionen`);
   const ws = daten.filter((d) => d.aufgabe === "wordspan" && !d.uebung);
   pruefe(ws.length === 10 && ws.every((d) => d.alles_richtig), `Gruppe ${g}: Word-Span-Auswertung (${ws.length})`);
-  pruefe(daten.some((d) => d.aufgabe === "brettspiel_2"), `Gruppe ${g}: Frage 2b fehlt`);
+  pruefe(daten.some((d) => d.aufgabe === "brettspiel"), `Gruppe ${g}: Brettspielfragen fehlen`);
   const pers = daten.find((d) => d.aufgabe === "person");
   pruefe(pers && pers.alter === 25 && pers.wohnland === "Italien" && pers.muttersprache === "Deutsch" && abgebrochen === null, `Gruppe ${g}: Personenseite`);
   pruefe(daten.filter((d) => d.aufgabe === "cognitive_load").length === 3, `Gruppe ${g}: CLQ`);
   const aks = daten.filter((d) => d.ak_name);
   pruefe(aks.map((d) => d.ak_name).join() === "ak1,ak2,ak3" && aks.every((d) => d.ak_bestanden), `Gruppe ${g}: Aufmerksamkeitschecks`);
-  pruefe(aks[0]._fragen.length === 16 && aks[0]._fragen[7] === "ak1", `Gruppe ${g}: Position ak1`);
+  pruefe(aks[0]._fragen.length === 15 && aks[0]._fragen[7] === "ak1", `Gruppe ${g}: Position ak1`);
   pruefe(daten.filter((d) => d.aufgabe === "verstaendlichkeit").map((d) => d._fragen.length).join() === "10,11,10", `Gruppe ${g}: ak2 in Verständlichkeit`);
   pruefe(daten[0].aufgabe === "willkommen" && daten.some((d) => d.aufgabe === "kommentar"), `Gruppe ${g}: Begrüssung/Kommentar`);
   const woerter = daten.filter((d) => d.aufgabe === "wordspan").flatMap((d) => d.liste.split(" "));
   pruefe(new Set(woerter).size === woerter.length && !woerter.includes(""), `Gruppe ${g}: Wörter doppelt/zu wenige`);
   pruefe(daten.filter((d) => d.aufgabe === "sls").length === ctx.TEXTE.sls_saetze.length, `Gruppe ${g}: SLS`);
-  pruefe(daten.filter((d) => d.aufgabe === "verstaendnisfragen").every((d) => d.vf_anzahl === 2), `Gruppe ${g}: VF`);
+  pruefe(daten.filter((d) => d.aufgabe === "verstaendnisfragen").every((d) => d.vf_anzahl === 2 && d.vf_richtig === ({ '11': 1, '17': 1, '19': 0 })[d.spiel]), `Gruppe ${g}: VF`);
 }
 // Reihenfolge wird gemischt
 const reihen = new Set();

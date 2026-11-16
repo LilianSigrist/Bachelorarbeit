@@ -19,9 +19,11 @@
      index.html?test=1&gruppe=5   -> Sequenzgruppe 5 erzwingen
    ===================================================================== */
 
-const STUDIEN_VERSION = "0.1";
+const STUDIEN_VERSION = "0.2";
 const URL_PARAMS = new URLSearchParams(window.location.search);
-const TESTMODUS = URL_PARAMS.get("test") === "1" || !CONFIG.DATAPIPE_ID;
+// Läuft die Studie auf JATOS? (jatos.js wird nur dort bereitgestellt)
+const AUF_JATOS = typeof jatos !== "undefined";
+const TESTMODUS = URL_PARAMS.get("test") === "1" || (!AUF_JATOS && !CONFIG.DATAPIPE_ID);
 // Mindestlesezeit; im Testmodus mit &schnell=1 abschaltbar
 const MIN_LESEZEIT_MS = (TESTMODUS && URL_PARAMS.get("schnell") === "1") ? 0 : CONFIG.MIN_LESEZEIT_S * 1000;
 
@@ -53,7 +55,7 @@ async function gruppeBestimmen() {
   if (ausUrl >= 1 && ausUrl <= 8) return { gruppe: ausUrl, quelle: "url" };
 
   // Ausgeglichene Zuteilung über DataPipe (dort 8 Bedingungen einstellen)
-  if (!TESTMODUS && typeof jsPsychPipe !== "undefined") {
+  if (!TESTMODUS && !AUF_JATOS && typeof jsPsychPipe !== "undefined") {
     try {
       const c = await jsPsychPipe.getCondition(CONFIG.DATAPIPE_ID);
       if (Number.isInteger(c) && c >= 0) return { gruppe: (c % 8) + 1, quelle: "datapipe" };
@@ -156,25 +158,13 @@ function ablaufErstellen(jsPsych, gruppe, teilnahmeId) {
     },
   });
 
-  /* 3b. Brettspielaffinität (Frage 2b nur, wenn bei Frage 2 nicht «nie») */
-  const bsFrage = (f) => ({ name: f.name, prompt: f.prompt, options: f.options, required: true });
+  /* 3b. Brettspielaffinität */
   timeline.push({
     type: jsPsychSurveyMultiChoice,
     preamble: "<h2>Ihre Erfahrung mit Brettspielen</h2>",
-    questions: TEXTE.brettspiel.slice(0, 2).map(bsFrage),
+    questions: TEXTE.brettspiel.map((f) => ({ name: f.name, prompt: f.prompt, options: f.options, required: true })),
     button_label: "Weiter",
-    data: { aufgabe: "brettspiel_1" },
-  });
-  const frage2b = TEXTE.brettspiel.find((f) => f.name === "bs_lernart");
-  timeline.push({
-    timeline: [{
-      type: jsPsychSurveyMultiChoice,
-      preamble: "<h2>Ihre Erfahrung mit Brettspielen</h2>",
-      questions: [bsFrage(frage2b)],
-      button_label: "Weiter",
-      data: { aufgabe: "brettspiel_2" },
-    }],
-    conditional_function: () => frage2b.nurWenn(ende("brettspiel_1").response),
+    data: { aufgabe: "brettspiel" },
   });
 
   /* 4. Drei Spielanleitungen */
@@ -384,7 +374,20 @@ function ablaufErstellen(jsPsych, gruppe, teilnahmeId) {
   });
 
   /* 7. Daten speichern und Abschluss */
-  if (!TESTMODUS) {
+  if (!TESTMODUS && AUF_JATOS) {
+    // JATOS: Daten als CSV übermitteln und Studie als abgeschlossen markieren
+    timeline.push({
+      type: jsPsychCallFunction,
+      async: true,
+      func: (fertig) => {
+        jatos.submitResultData(jsPsych.data.get().csv())
+          .then(() => jatos.endStudyAjax(true))
+          .catch((e) => console.error("Speichern in JATOS fehlgeschlagen:", e))
+          .finally(() => fertig());
+      },
+      data: { aufgabe: "speichern" },
+    });
+  } else if (!TESTMODUS) {
     timeline.push({
       type: jsPsychPipe,
       action: "save",
@@ -427,6 +430,7 @@ async function studieStarten() {
     gruppe_quelle: quelle,
     spiele_reihenfolge: CONFIG.SPIELE.join("-"),
     testmodus: TESTMODUS,
+    plattform: AUF_JATOS ? "jatos" : (CONFIG.DATAPIPE_ID ? "datapipe" : "test"),
     studien_version: STUDIEN_VERSION,
   });
 
@@ -439,5 +443,6 @@ async function studieStarten() {
 }
 
 if (typeof window !== "undefined" && !window.__KEIN_AUTOSTART__) {
-  window.addEventListener("load", studieStarten);
+  if (AUF_JATOS) jatos.onLoad(studieStarten);
+  else window.addEventListener("load", studieStarten);
 }

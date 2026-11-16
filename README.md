@@ -8,8 +8,8 @@ Aufbau und Texte folgen dem Ethikantrag. Offene Stellen sind mit `[[doppelten ec
 0. Begrüssung
 1. Technische Prüfung (nur Computer/Laptop, Mindestgrösse des Fensters)
 2. Studieninformation und Einverständnis (Ethikantrag A1.3)
-3. Angaben zur Person (Alter, Geschlecht, Wohnland, Muttersprache; unter 18 Jahren: Abbruch ohne Speicherung) und Fragen zur Brettspielerfahrung (Frage 2b nur, wenn bei Frage 2 nicht «nie»)
-4. Drei Spielanleitungen. Nach jeder: Verständlichkeit (10 Items, zufällige Reihenfolge), Cognitive Load Questionnaire (15 Items, Krieglstein et al., 2023), Verständnisfragen
+3. Angaben zur Person (Alter, Geschlecht, Wohnland, Muttersprache; unter 18 Jahren: Abbruch ohne Speicherung) und drei Fragen zur Brettspielaffinität
+4. Drei Spielanleitungen. Nach jeder: Verständlichkeit (10 Items, zufällige Reihenfolge), Cognitive Load Questionnaire (14 Items, Krieglstein et al., 2023), Verständnisfragen
 5. Lesefertigkeit (SLS-Berlin, 3 Minuten)
 6. Arbeitsgedächtnis (Word Span Task: Übung, dann Listen mit 3–7 Wörtern; Abbruch, wenn beide Listen einer Länge falsch sind)
 6b. Offene Frage «Möchten Sie uns noch etwas mitteilen?» (freiwillig)
@@ -43,17 +43,20 @@ Technischer Selbsttest (für Claude): `node tests/pruefen.js`
 | `js/anleitungen.js` | Bilddateien der Anleitungen (pro Spiel 8 Versionen) und Verständnisfragen |
 | `anleitungen/` | Die Bilder der Anleitungen (siehe `anleitungen/README.md`) |
 
-## Datenspeicherung mit DataPipe
+## Datenspeicherung
 
-GitHub Pages zeigt die Studie nur an, speichert aber keine Daten. Dafür wird DataPipe genutzt, das die Daten als CSV in
-ein OSF-Projekt schreibt.
+**JATOS (gemäss Ethikantrag, DeSciL-Server der ETH):** Den Inhalt dieses Repositorys (ohne `tests/`) als Studie in
+JATOS importieren bzw. hochladen, `index.html` als Startseite der Komponente wählen. Die Studie erkennt JATOS
+automatisch, speichert die Daten am Ende als CSV in JATOS und markiert die Teilnahme als abgeschlossen.
+Die Sequenzgruppe wird auf JATOS zufällig zugeteilt (Spalte `gruppe`).
 
-1. Auf [osf.io](https://osf.io) ein Konto und ein **privates** Projekt anlegen. Als Speicherort «Germany – Frankfurt» wählen.
-2. Auf [pipe.jspsych.org](https://pipe.jspsych.org) ein Konto anlegen und mit OSF verbinden (OSF-Token).
-3. In DataPipe ein neues Experiment anlegen, mit dem OSF-Projekt verknüpfen.
-4. **Data collection** aktivieren und unter **Condition assignment** 8 Bedingungen einstellen
-   (für eine gleichmässige Verteilung auf die Sequenzgruppen).
-5. Die Experiment-ID in `js/config.js` bei `DATAPIPE_ID` eintragen.
+**Alternative ausserhalb von JATOS: DataPipe.** Dann die DataPipe-Experiment-ID in `js/config.js` eintragen
+(OSF-Projekt privat, Speicherort Deutschland; unter «Condition assignment» 8 Bedingungen einstellen).
+
+Ohne JATOS und ohne DataPipe-ID (z. B. auf GitHub Pages) läuft die Studie im Testmodus und speichert nichts.
+
+**Nach Änderungen:** In `index.html` die Zahl hinter `?v=` erhöhen, damit Browser nicht die alte Version aus dem
+Cache laden.
 
 ## GitHub Pages
 
