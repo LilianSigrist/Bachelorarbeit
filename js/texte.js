@@ -157,7 +157,7 @@ TEXTE.brettspiel = [
   {
     name: "bs_spielen",
     prompt: "Wie oft spielen Sie Brettspiele?",
-    options: ["seltener als einmal pro Jahr", "mehrmals pro Jahr", "etwa einmal pro Monat",
+    options: ["nie", "seltener als einmal pro Jahr", "mehrmals pro Jahr", "etwa einmal pro Monat",
               "mehrmals pro Monat", "mindestens einmal pro Woche"],
   },
   {

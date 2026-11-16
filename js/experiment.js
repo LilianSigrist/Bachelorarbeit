@@ -19,7 +19,7 @@
      index.html?test=1&gruppe=5   -> Sequenzgruppe 5 erzwingen
    ===================================================================== */
 
-const STUDIEN_VERSION = "0.2";
+const STUDIEN_VERSION = "0.3";
 const URL_PARAMS = new URLSearchParams(window.location.search);
 // Läuft die Studie auf JATOS? (jatos.js wird nur dort bereitgestellt)
 const AUF_JATOS = typeof jatos !== "undefined";
